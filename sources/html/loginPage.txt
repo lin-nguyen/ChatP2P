@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Chat Forum</title>
+    <link rel="stylesheet" href="../css/loginPage.css">
+    <script src="https://kit.fontawesome.com/edb0ed1b03.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/peerjs@1.0.0/dist/peerjs.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+    <div class="LOGIN-SIGNUP">
+        <div class="web-description">
+            <div class="web-main-title">Connect <span class="span-web-title">with your friend!</span></div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="interactive-area">
+            <div class="login-form">
+                <div class="login-title">
+                    <div class="log-title-head">Always Together </div>
+                    <div class="log-title-description">Simple way to share your story !</div>
+                </div>
+
+                <form class="Form" action="/login-request" method="POST">
+                    <p class="login-id-contains">
+                        <i class="fas fa-user"></i>
+                        <input placeholder="Your username!" name="username" type="text" id="user-ip-id-get"
+                            autocomplete="off" class="user-ip-id-class">
+                    </p>
+                    <div class="clearfix"></div>
+                    <p class="login-ps-contains">
+                        <i class="fas fa-key"></i>
+                        <input placeholder="Your password" name="password" type="password" id="ps-ip-id-get"
+                            autocomplete="off" class="ps-ip-id-class">
+                    </p>
+                    <div class="clearfix"></div>
+                    <button type="Submit" class="log-action-class" id="log-action-id-send">Sign in</button>
+                </form>
+                <div class="sign-control">
+                    <!-- <p class="direct-sign-up">Hoặc bạn chưa có tài khoản</p> -->
+                    <p class="sign-up-action-btn" id="sign-up-action-click" display="false">Create an account</p>
+                </div>
+            </div>
+            <div class="info-area">
+                <div class="introduction-form" id="info-form-id">
+                    Some introduction here
+                </div>
+                <div class="signin-form" id="signin-form-id" style="display: none;">
+                    <div class="signin-title">Sign up</div>
+                    <div class="output-signin-final">
+                        <img class="user-image-class" id="user-image-id" src="../image/unknow-avatar.png"
+                            alt="something here">
+                        <p class="output-name-display"></p>
+                    </div>
+                    <div class="input-signin-raw">
+                        <div class="alertException">
+                            <p class="alert-exception-class" id="alert-exception-id">
+                                <ul class="alertUl" style="display: none;">
+                                    Inadequate
+                                    <br>
+                                    <br>
+                                    <li id="fname-alert">Your display name needs at least 1</li>
+                                    <li id="user-alert">Your username is not available</li>
+                                    <li id="paw-alert">Your password needs at least 6 characters</li>
+                                </ul>
+                            </p>
+                        </div>
+                        <div class="fullname-sign-up">
+                            <p class="fullname-action">
+                                <input type="text" id="fname-sign-up-id" class="fname-sign-up-class" maxlength="12"
+                                    autocomplete="off" placeholder="Your display name:">
+                            </p>
+                        </div>
+                        <div class="username-sign-up">
+                            <p class="username-sign-up-action">
+                                <input type="text" id="user-sign-up-id" class="user-sign-up-class" autocomplete="off"
+                                    placeholder="Your username">
+                            </p>
+                        </div>
+                        <div class="password-sign-up">
+                            <p class="password-sign-up-action">
+                                <input type="password" id="paw-sign-up-id" class="paw-sign-up-class" autocomplete="off"
+                                    placeholder="Your password here">
+                            </p>
+                        </div>
+                        <div class="image-sign-up">
+                            <p class="avatar-sign-up-action">
+                                <input type="file" id="avatar-sign-up-id" class="avatar-sign-up-class"
+                                    autocomplete="off" accept="image/*" style="display: none;"
+                                    value="sources/image/unknow-avatar.png">
+                                <label for="avatar-sign-up-id" class="label-file-input"><i class="far fa-images"></i>
+                                    <em class="imageDesciption">Put your avatar here</em> </label>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="btn-signin-action">
+                        <p class="btn-sign-action-class" id="btn-sign-action-id">Sign up</p>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="description-form">
+                <p class="description-text">Products bring people together more safely</p>
+            </div>
+        </div>
+    </div>
+    <script src="../js/loginPage.js"></script>
+</body>

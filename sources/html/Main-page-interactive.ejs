@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<head>
+    <title>HOME</title>
+    <link rel="stylesheet" href="../css/Main-page-interactive.css">
+    <script src="https://kit.fontawesome.com/edb0ed1b03.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://unpkg.com/peerjs@1.0.0/dist/peerjs.min.js"></script>
+</head>
+
+<body>
+    <div class="chatAction">
+        <div class="now-message-box">
+            <div class="control-now-message-request">
+                <p class="num-now-message"> Now message box: </p>
+                <p class="add-new-box-message" id="add-new-box-msg">
+                    <i class="fas fa-plus"></i>
+                </p>
+            </div>
+            <div class="now-message-showing-status">
+                <ul class="now-message-ul-showing" id="now-msg-show-stt">
+                    <!-- <li>
+                        <p>
+                            Dung Cao
+                        </p>
+                        <br>
+                        <p>
+                            <img src="../image/unknow-avatar.png" alt="">
+                            <img src="../image/unknow-avatar.png" alt="">
+                            <img src="../image/unknow-avatar.png" alt="">
+                        </p>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+        <div class="message-area-show">
+            <div class="message-area-header" id="msg-are-head" rID="root">
+                <div class="message-box-h-member" id="msg-box-h-mem">
+                    <i class="fas fa-users"></i>
+                    <p>Long,</p>
+                    <p>Quân,</p>
+                    <p>Vũ</p>
+                </div>
+                <div class="message-box-h-out" id="msg-box-h-out">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+            </div>
+            <!-- boxID(string), peerID(string) , username (string), image  (blob) -->
+            <div class="box-contains-class" id="box-contains-id">
+                <div class="message-area-body" id="msg-area-body-id">
+                    <ul class="message-area-ul-show" id="msg-area-ul-s-id" rID="root">
+                        <li class="message-guest" dir="ltr">
+                            <p class="guest-name-inside">Long đẹp trai</p>
+                            <p class="msg-show">
+                                <img class="avatar-img" src="../image/unknow-avatar.png" alt="">
+                                <button class="msg-vid">Video Call</button>
+                            </p>
+                        </li>
+                        <div class="clearfix"></div>
+                        <li class="message-host" dir="rtl">
+                            <p class="host-name-inside">Long đẹp trai</p>
+                            <p class="msg-show">
+                                <img class="avatar-img" src="../image/unknow-avatar.png" alt="">
+                                <img class="msg-img" src="../image/unknow-avatar.png" alt="">
+                            </p>
+                        </li>
+                        <div class="clearfix"></div>
+                        <li class="message-host" dir="rtl">
+                            <p class="host-name-inside">Long đẹp trai</p>
+                            <p class="msg-show">
+                                <img class="avatar-img" src="../image/unknow-avatar.png" alt="">
+                                <button class="msg-vid">Video Call</button>
+                            </p>
+                        </li>
+                        <div class="clearfix"></div>
+                    </ul>
+                </div>
+            </div>
+            <!-- ENDBOX -->
+            <div class="message-area-footer">
+                <input type="text" class="input-send-message" id="input-send-msg-id"
+                    placeholder="Enter your message here!">
+                <p class="btn-send-message" id="btn-send-msg-id" rID="root"><i class="fas fa-paper-plane"></i></p>
+            </div>
+        </div>
+
+        <div class="interactive-chat-area">
+            <div class="sign-out-contains">
+                <p class="signOut-actions">Sign out</p>
+            </div>
+            <p class="file-transfer-interaction">
+                <input type="file" id="file-image-transfer" rID="root" accept="img/*" style="display: none;">
+                <label for="file-image-transfer" class="label-image-transfer">
+                    <i class="far fa-images" title="Select your image here!"></i>
+                </label>
+            </p>
+            <p id="videoc-tranf-inte" class="videocall-transfer-interaction" rID="root"><i class="fas fa-video"></i></p>
+            <div class="group-avatar-show" id="group-avt-s-id">
+            </div>
+        </div>
+
+
+        <div class="account-status-request" id="account-status-req-id">
+            <div class="disable-another-options"></div>
+            <div class="search-account-div">
+                <p class="close-search-interactive-options" id="close-search-interaction">
+                    <i class="fas fa-times"></i></p>
+                <div class="chat-with-showing-user">
+                    <p class="add-avatar-option" id="add-avt-id-options"></p>
+                    <p class="submit-request-broatcast" id="submit-request-bc-id"><i class="fab fa-google-play"></i></p>
+                </div>
+                <div class="list-Showing">
+                    <div class="control-showing-list">
+                        <p class="online-control" online="true" id="online-control-id"><i
+                                class="fas fa-globe-americas"></i>
+                        </p>
+                        <p class="contains-input-search">
+                            <input type="text" id="input-id-search-box" class="input-class-search-box"
+                                placeholder="Search user online">
+                        </p>
+                    </div>
+                    <div class="list-online-div-showing">
+                        <ul class="list-online-ul-showing" id="list-online-ul-s-id">
+
+                        </ul>
+                    </div>
+                    <div class="list-offline-div-showing" style="display:none">
+                        <ul class="list-offline-ul-showing" id="list-offline-ul-s-id">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="LOGIN-SIGNUP" style="position: fixed;">
+        <div class="web-description">
+            <div class="web-main-title">Connect <span class="span-web-title">with your
+                    friend!</span></div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="interactive-area">
+            <div class="login-form">
+                <div class="login-title">
+                    <div class="log-title-head">Always Together </div>
+                    <div class="log-title-description">Simple way to share your story !</div>
+                </div>
+                <p class="login-id-contains">
+                    <i class="fas fa-user"></i>
+                    <input placeholder="Your username!" name="username" type="text" id="user-ip-id-get"
+                        autocomplete="off" class="user-ip-id-class">
+                </p>
+                <div class="clearfix"></div>
+                <p class="login-ps-contains">
+                    <i class="fas fa-key"></i>
+                    <input placeholder="Your password" name="password" type="password" id="ps-ip-id-get"
+                        autocomplete="off" class="ps-ip-id-class">
+                </p>
+                <div class="clearfix"></div>
+                <button type="Submit" class="log-action-class" id="log-action-id-send">Sign
+                    in</button>
+                <div class="sign-control">
+                    <p class="sign-up-action-btn" id="sign-up-action-click" display="false">
+                        Create an account</p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="info-area">
+                <div class="introduction-form" id="info-form-id">
+                    Some introduction here
+                </div>
+                <div class="signin-form" id="signin-form-id" style="display: none;">
+                    <div class="signin-title">Sign up</div>
+                    <div class="output-signin-final">
+                        <img class="user-image-class" id="user-image-id" src="../image/unknow-avatar.png"
+                            alt="something here">
+                        <p class="output-name-display"></p>
+                    </div>
+                    <div class="input-signin-raw">
+                        <div class="alertException">
+                            <p class="alert-exception-class" id="alert-exception-id">
+                                <ul class="alertUl" style="display: none;">
+                                    Inadequate
+                                    <br>
+                                    <br>
+                                    <li id="fname-alert">Your display name needs at least 1</li>
+                                    <li id="user-alert">Your username is not available</li>
+                                    <li id="paw-alert">Your password needs at least 6 characters
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <div class="fullname-sign-up">
+                            <p class="fullname-action">
+                                <input type="text" id="fname-sign-up-id" class="fname-sign-up-class" maxlength="12"
+                                    autocomplete="off" placeholder="Your display name:">
+                            </p>
+                        </div>
+                        <div class="username-sign-up">
+                            <p class="username-sign-up-action">
+                                <input type="text" id="user-sign-up-id" class="user-sign-up-class" autocomplete="off"
+                                    placeholder="Your username">
+                            </p>
+                        </div>
+                        <div class="password-sign-up">
+                            <p class="password-sign-up-action">
+                                <input type="password" id="paw-sign-up-id" class="paw-sign-up-class" autocomplete="off"
+                                    placeholder="Your password here">
+                            </p>
+                        </div>
+                        <div class="image-sign-up">
+                            <p class="avatar-sign-up-action">
+                                <input type="file" id="avatar-sign-up-id" class="avatar-sign-up-class"
+                                    autocomplete="off" accept="image/*" style="display: none;"
+                                    value="sources/image/unknow-avatar.png">
+                                <label for="avatar-sign-up-id" class="label-file-input"><i class="far fa-images"></i>
+                                    <em class="imageDesciption">Put your avatar here</em>
+                                </label>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="btn-signin-action">
+                        <p class="btn-sign-action-class" id="btn-sign-action-id">Sign up</p>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="description-form">
+                <p class="description-text">Products bring people together more safely</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="divImageShowing"></div>
+    <div id="div-call-contains">
+        <div class="background-filler"></div>
+        <div id="divVideoShowing" mem_count="0">
+        </div>
+        <button id="closedNowVideoCall"> <i class="fas fa-compress-arrows-alt"></i></button>
+    </div>
+    <script src="../js/Main-page-interactive.js"></script>
+</body>

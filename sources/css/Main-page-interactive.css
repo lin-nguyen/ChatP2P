@@ -1,0 +1,908 @@
+html {
+    font-family: sans-serif;
+    font-size: 20px;
+    background-color: #ffffff;
+    text-rendering: optimizeLegibility;
+    transition: all 0.5s;
+}
+
+* {
+    margin: 0px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.clearfix::after {
+    content: " ";
+    display: table;
+    clear: both;
+}/*-----------------------------------WEB TITLE-------------------------------*/
+
+.web-description{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    height: 10vh;
+    width: 100vw;
+    box-shadow: 3px 3px 3px 3px grey;
+    background: linear-gradient(45deg,#eee,#efefef, lightgray 60%, #efefef,#fafafa,#eee)
+
+}
+.web-main-title{
+    background-color: blue;
+    display: inline-block;
+    margin-left: 30%;
+    font-size: 2em;
+    font-weight: 500;
+    background: -webkit-linear-gradient(0deg, green,lightgreen,white);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+/* 
+    background: -webkit-linear-gradient(45deg, #eee, red);
+    background: -webkit-linear-gradient(#eee, grey); */
+.span-web-title{
+    font-weight: 500;
+    background: -webkit-linear-gradient(25deg, green,white 140%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 0.9em;
+}
+/* -----------------------------INTERACTIVE AREA------------------------------ */
+.interactive-area{
+    margin-top: 10vh;
+    height: 90vh;
+    background: linear-gradient(45deg,#eee,lightgray,#efefef, #efefef,#fafafa,#eee)
+}
+
+
+/* ---------------------------------LOGIN STYLE----------------------------- */
+
+.login-form{
+    position: fixed;
+    display: inline-block;
+    width: 30vw;
+    height: 50vh;
+    margin-left: 6vw;
+    margin-top: 10vh;
+    background-color: #fafafa;
+ 
+}
+.login-form:hover{
+    box-shadow: 8px 8px 8px 8px grey;
+}
+
+.login-title{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding-bottom: 8%;
+}
+
+.log-title-head{
+    font-size: 1.3em;
+    display: inline-block;
+    font-weight: 700;
+    margin: 5% 15%;
+}
+
+.log-title-description{
+    font-size: 0.9em;
+    margin: 0 15%;
+}
+
+.login-id-contains{
+    border-radius: 10px;
+    border: solid 1px black;
+    display: flex;
+    align-items: center;
+    width: 20vw;
+    height: 5vh;
+    margin-left: 5%;
+    margin-top: 2%;
+}
+.fa-user{
+    margin: 0px 5%;
+}
+.user-ip-id-class{
+    padding-left: 5%;
+    width: 100%;
+    height: 100%;
+    margin-top: 0px;
+    border-radius: 10px;
+    font-size: 0.8em;
+}
+
+.login-ps-contains{
+    border-radius: 10px;
+    border: solid 1px black;
+    display: flex;
+    width: auto;
+    align-items: center;
+    width: 20vw;
+    height: 5vh;
+    margin-left: 5%;
+    margin-top: 2%;
+}
+
+.fa-key{
+    margin: 0px 5%;
+}
+.ps-ip-id-class{
+    padding-left: 5%;
+    width: 100%;
+    height: 100%;
+    margin-top: 0px;
+    border-radius: 10px;
+    font-size: 0.8em;
+}
+
+.log-action-class{
+    background-color:green;
+    margin-top: 10%;
+    margin-left: 30%;
+    display: inline-block;
+    text-align: center;
+    min-width: 100px;
+    border-radius: 30px;
+    font-size: 1.0em;
+    padding: 2% 2%;
+    color: white;
+    cursor: pointer;
+}
+
+.sign-control{
+    display: inline-block;
+    font-size: 0.7em;
+    margin-top: 5%;
+    margin-left: 65%;
+    padding: 1% 1%;
+    border-radius: 30px;
+}
+ 
+/* --------------------------------------INFO & LOGIN STYLE----------------- */
+.info-area{
+    float:right;
+    margin-right: 4vw;
+    margin-top: 6vh;
+    margin-left: 56vw ;
+    width: 40vw;
+    height: 70vh;
+    /* border: outset 3px green; */
+    box-shadow: 2px 2px 2px 2px darkgreen;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    border-top-right-radius: 50px;
+    border-top-left-radius: 10px;
+}
+
+.introduction-form{
+    border-radius: 50px;
+    width: 100%;
+    height: 100%;
+}
+
+.signin-form{
+    width: 100%;
+    height: 100%;
+}
+
+.signin-title{
+    font-size: 1.5em;
+    margin: 5% 20% 3% 20%;
+    font-weight: 700;
+}
+
+.sign-up-action-btn{
+    color: green;
+    cursor: pointer;
+}
+.sign-up-action-btn:hover{
+    color: red;
+}
+
+.output-signin-final{
+    float: right;
+    margin-top: -5%;
+    margin-right: 5%;
+    min-width: 200px;
+    min-height: 60px;
+    border: solid 1px black;
+    display: flex;
+    align-items: center;
+
+}
+
+.user-image-class{
+    border-radius: 50px;
+    padding: 5% 5%;
+    max-height: 70px;
+    max-width: 70px;
+}
+
+.input-signin-raw{
+    display: inline-block;
+    width: 90%;
+    height: 60%;
+    margin-left: 5%;
+}
+
+.fullname-sign-up,
+.username-sign-up,
+.password-sign-up {
+    display: block;
+    margin: 4% 3%;
+    width: 50%;
+    height: 13%;
+    background-color: red;
+}
+.fullname-action,
+.username-sign-up-action,
+.password-sign-up-action{
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+}
+.fname-sign-up-class,
+.user-sign-up-class,
+.paw-sign-up-class{
+    box-shadow: 1px 1px 1px 1px darkgreen;
+    border: none;
+    width: 100%;
+    height: 100%;
+    padding-left: 5%;
+}
+.fname-sign-up-class:focus,
+.user-sign-up-class:focus,
+.paw-sign-up-class:focus{
+    box-shadow: 2px 2px 2px 2px green;
+}
+
+
+.image-sign-up{
+    display: block;
+    margin: 4% 8%;
+    width: 90%;
+    height: 13%;
+}
+
+.avatar-sign-up-action{
+    display: inline-block;
+    font-size: 2em;
+}
+
+.label-file-input{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.label-file-input:hover{
+    color: orange;
+}
+
+.imageDesciption{
+    font-size: 0.4em;
+    display: inline-block;
+    margin-left: 10%;
+}
+
+.alertException{
+    float: right;
+    margin-top: 4%;
+    margin-right: -3%;
+    width: 50%;
+    height: 50%;
+}
+.alertUl {
+    list-style: none;
+    color: red;
+}
+.alertUl li{
+    margin-bottom: 3%;
+    font-size: 0.6em;
+}
+.btn-signin-action{
+    float: right;
+    margin-right: 20%;
+}
+.btn-sign-action-class{
+    color: white;
+    background-color: green;
+    padding: 10% 5%;
+    text-align: center;
+    min-width: 100px;
+    border-radius: 40px;
+    cursor:pointer;
+}
+/* --------------------------------------DESCRIPTION STYLE--------------------- */
+.description-form{
+    position: relative;
+    height: 9vh;
+    margin-left: 10vw;
+}
+.description-text{
+    font-style: oblique;
+    font-size: 0.8em;
+}
+
+/* --------------------------ACCOUNT STATUS LEFT STYLE----------------------- */
+.search-account-div{
+    position: fixed;
+    width: 30vw;
+    height: 100vh;
+    background: linear-gradient(45deg,gray -10% , #ededed, #fafafa);
+    border-top-right-radius: 15%;
+    border-bottom-right-radius: 15%;
+    border-bottom-left-radius: 5%;
+
+}
+
+.close-search-interactive-options{
+    font-size: 1.5em;
+    margin-left: 5px;
+    position: fixed;
+    color: #ed3232;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.close-search-interactive-options:hover{
+    color:red;
+    font-size:2em;
+}
+
+.chat-with-showing-user{
+    visibility:hidden;
+    width: 25%;
+    height: 6%;
+    position: fixed;
+    margin-left: 4vw;
+    margin-top: 1vh;
+    display: flex;
+
+}
+.add-avatar-option{
+    width: 85%;
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    overflow: auto;
+    align-items: center;
+}
+.add-avatar-option img{
+    margin-right: 4%;
+    max-width: 35px;
+    max-height: 35px;
+    border-radius: 50%;
+}
+.submit-request-broatcast{
+    cursor: pointer;
+    text-align: center;
+    width: 15%;
+    height: 100%;
+    font-size: 1.8em;
+    color: #60ba4c;
+    transition: all 0.2;
+}
+.submit-request-broatcast:hover{
+    color:#cf5825;
+}
+
+.disable-another-options{
+    position: fixed;
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.5;
+}
+
+.list-Showing{
+    margin-top: 15%;
+    margin-left: 3%;
+    width: 94%;
+    height: 90%;
+    border-radius: 5px;
+}
+.control-showing-list{
+    margin-top: 1%;
+    width: 100%;
+    height: 6%;
+    display: flex;
+    align-items: center;
+}
+.online-control{
+    margin: 1% 1%;
+    font-size: 1.5em;
+    width: 15%;
+    text-align: center;
+    color: green;
+    cursor: pointer;
+}
+
+.contains-input-search{
+    width: 80%;
+    height: 100%;
+
+}
+
+.input-class-search-box{
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    padding-left: 10%;
+    border-style:none ;
+    /* border-style: none; */
+    background-color: #f1f1f1;
+    background: linear-gradient(45deg,lightgray,#f2f2f2);
+    font-size: 0.8em;
+}
+
+.list-online-div-showing, 
+.list-offline-div-showing{
+    width: 80%;
+    height: 90%;
+    margin-left: 15%;
+    margin-top: 2%;
+}
+
+.list-online-ul-showing,
+.list-offline-ul-showing{
+    list-style: none;
+    overflow:auto;
+}
+
+.list-online-li-style,
+.list-offline-li-style{
+    display: flex;
+    align-items: center;
+    padding: 3% 5%;
+    border-radius: 10px;
+}
+
+
+.list-online-li-style:hover{
+    cursor: pointer;
+    background-color: #dddfe2;
+}
+
+.img-status-options{
+    border-radius: 50%;
+    max-width: 40px;
+    max-height: 40px;
+}
+.l-o-s-u{
+    margin-left: 5%;
+    width: 70%;
+    font-style: oblique;
+    font-size: 0.8em;
+    overflow: hidden;
+}
+
+.fa-circle {
+    font-size: 0.4em;
+    max-width: 5%;
+    margin-left: 10%;
+    float:right;
+}
+.fa-online{
+    color: #32fc40;
+}
+.fa-ofline{
+    color: #69706a;
+}
+
+/* ----------------------------NOW MESSAGE STYLE------------------- */
+
+.now-message-box{
+    position: fixed;;
+    width: 20vw;
+    height: 100vh;
+    background-color: #fdfdfd;
+}
+
+.control-now-message-request{
+    background-color: #f1f1f1;
+    margin-bottom: 5%;
+    padding-bottom: 5%;
+    width: 100%;
+    height: 8%;
+    display: flex;
+    align-items: center;
+}
+
+.num-now-message{
+    font-size: 0.8em;
+    width: 65%;
+    margin-left: 5%;
+    font-style: oblique;
+}
+
+.add-new-box-message{
+    padding: 2% 3%;
+    font-size: 1.2em;
+    margin-left: 10%;
+    border-radius: 50px;
+    box-shadow: 1px 1px 1px 1px black;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+.add-new-box-message:hover{
+    padding: 3% 4%;
+    color: darkgreen;
+    box-shadow: 1px 1px 1px 1px green;
+}
+
+.now-message-showing-status{
+    width: 90%;
+    height: 90%;
+    margin-left: 5%;
+    border-radius: 10px;
+}
+.now-message-ul-showing{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    list-style: none;
+    padding-left: 5%;
+    padding-right: 1%;
+}
+.now-message-ul-showing li{
+    cursor: pointer;
+    border-radius: 10px ;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    width: 100%;
+    padding: 1% 0%;
+}
+.now-message-ul-showing li:hover{
+    background-color: #f5f5f5;
+}
+.now-message-ul-showing li p{
+    margin-left: 15%;
+    display: inline;
+    overflow: hidden;
+}
+.now-message-ul-showing li p img{
+    border-radius: 50%;
+    margin-right: 4%;
+    width: 35px;
+    height: 35px;
+}
+
+/* ------------------------------MESSAGE SHOW STYLE---------------------------- */
+
+.message-area-show{
+    position: fixed;
+    margin-left: 20vw;
+    width: 70vw;
+    height: 100vh;
+    border: solid 1px lightgray;
+}
+
+.message-area-header{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+}
+.message-box-h-member{
+    width: 80%;
+    height: 90%;
+    margin-left: 2%;
+    padding-left: 5%;
+    display: flex;
+    align-items: center;
+    overflow: auto;
+}
+.fa-users{
+    font-size: 2em;
+    margin-right: 5%;
+    color: darkgreen;
+}
+.message-box-h-member p{
+    font-weight: 500;
+    margin-right: 1%;
+    font-weight: 700;
+}
+.message-box-h-out{
+    float: right;
+    width: 10%;
+    height: 90%;
+    margin-left: 5%;
+    font-size: 2.0em;
+    padding-left: 2%;
+    display: flex;
+    align-items: center;
+    color: darkgreen;
+    cursor: pointer;
+}
+.message-box-h-out:hover{
+    color: #cf5825;
+}
+
+.box-contains-class{
+    width: 100%;
+    height: 82%;
+}
+
+.message-area-body{
+    width: 100%;
+    height: 100%;
+}
+.message-area-ul-show{
+    margin-top: 1%;
+    margin-bottom: 1%;
+    width: 100%;
+    height: 98%;
+    list-style: none;
+    overflow: auto;
+}
+.message-area-ul-show li{
+    margin-bottom: 1%;
+    width: 40%;
+    border-radius: 20px;
+}
+.message-area-ul-show li .guest-name-inside{
+    margin-left: 15%;
+    font-size: 0.7em;
+    color: grey;
+}
+.message-area-ul-show li .host-name-inside{
+    margin-left: 62%;
+    font-size: 0.7em;
+    color: grey;
+}
+.msg-show{
+    display: flex;
+    align-items: center;
+}
+
+.avatar-img{
+    cursor: pointer;
+    width: 40px;
+    max-height: 40px;
+    border-radius: 50%;
+    margin-right: 3%;
+
+}
+
+.msg-text{
+    padding: 2% 2%;
+    background-color: #f3f3f3;
+    border-radius: 20px;
+    margin-right: 4%;
+    max-width: 80%;
+    height: auto;
+    font-size: 0.8em;
+
+}
+
+.msg-img{
+    cursor: pointer;
+    padding: 2% 2%;
+    border-radius: 20px;
+    margin-right: 4%;
+    max-width: 80%;
+    height: auto;
+    font-size: 0.8em;
+
+}
+
+.msg-vid{
+    cursor: pointer;
+    border-radius: 40px;
+    background-color: #24c73a;
+    border-style: none;
+    box-shadow: 2px 2px 2px 2px darkgreen;
+    padding: 2% 2%;
+    margin-right: 4%;
+    font-size: 1.1em;
+    font-weight: 700;
+    color: white;
+}
+.msg-vid:hover{
+    color: orange;
+}
+
+.message-area-ul-show li .avt-inside{
+    padding: 2% 2%;
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    margin-left: 4%;
+    margin-right: 4%;
+    max-width: 80%;
+    height: auto;
+    font-size: 0.8em;
+}
+
+.message-host{
+    float: right;
+    margin-right: 3%;
+}
+
+
+
+.message-area-footer{
+    width: 100%;
+    height: 6%;
+    display: flex;
+    align-items: center;
+    padding-left: 7%;
+}
+.input-send-message{
+    background-color: #f2f2f2;
+    border-style: none;
+    padding-left: 5% ;
+    font-size: 0.8em;
+    font-weight: 100;
+    width: 80%;
+    height: 80%;
+    border-radius: 20px;
+}
+.btn-send-message{
+    display: flex;
+    align-items: center;
+    margin-left: 3%;
+    height: 80%;
+    width: 5%;
+    border-radius: 20px;
+    border-style: none;
+    cursor: pointer;
+    font-size: 1.3em;
+    color: green;
+}
+/* ----------------------------INTERACT CHAT STYLE------------------------- */
+.interactive-chat-area{
+    width: 10vw;
+    height: 100vh;
+    float: right;
+}
+
+.signOut-actions{
+    display: inline-block;
+    padding: 5% 5%;
+    box-shadow: 2px 2px 2px 2px #e02828;
+    background-color: red;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10%;
+    margin-left: 18%;
+    margin-bottom: 10%;
+    border-radius: 30px;
+}
+.sign-out-contains{
+    padding-left: 3%;
+    border-bottom: solid 2px #f1f1f1;
+}
+
+.file-transfer-interaction{
+    margin-top: 30%;
+}
+.label-image-transfer{
+    text-align: center;
+    color: green;
+    cursor: pointer;
+}
+.fa-images{
+    margin-left: 40%;
+    font-size: 2em;
+}
+.label-image-transfer:hover{
+    font-size: 1.1em;
+}
+
+
+.videocall-transfer-interaction{
+    margin-top: 30%;
+    margin-left: 41%;
+    display: flex;
+    align-items: center;
+    font-size: 2em;
+    color: green;
+    cursor: pointer;
+}
+.videocall-transfer-interaction:hover{
+    font-size: 2.1em;
+}
+
+.group-avatar-show{
+    border-top: solid 4px #fafafa;
+    margin-top: 15%;
+    padding-top: 15%;
+    overflow: auto;
+    padding-left: 35%;
+}
+.group-avatar-show img{
+    margin-bottom: 20%;
+    border-radius: 50%;
+    display: block;
+    max-width: 60px;
+    max-height: 60px;
+}
+
+/* ----------------------------------DISPLAY IMAGE-------------------- */
+
+#divImageShowing{
+    position: fixed;
+}
+.ImageShow{
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.8;
+}
+.miniDiv{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.resizeImg{
+    height: auto; 
+    width: auto; 
+    max-width: 100vw;
+    max-height: 80vh;
+    margin: auto;
+}
+.btnCloseImage{
+    cursor: pointer;
+    color: white;
+    font-size: 1.1em;
+    margin: 1% 1%;
+    width: 20px;
+    height: 20px;
+    border-top: solid 5px white;
+    border-left: solid 5px white;
+}
+
+/* -----------------------------VIDEO CALL STYLE------------------- */
+#div-call-contains{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent;
+    display: none;
+}
+
+.background-filler{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.5;
+    border-top-right-radius: 20%;
+    border-bottom-right-radius: 20%;
+    border-bottom-left-radius: 20%;
+    display: flex;
+    align-items: center;
+}
+
+#divVideoShowing{
+    position: fixed;
+    align-items: center;
+    background-color: transparent;
+    width: 75%;
+    height: 80%;
+    margin-left: 12.5%;
+    margin-top: 5%;
+    overflow: auto;
+}
+
+#closedNowVideoCall{
+    cursor: pointer;
+    float: right;
+    position: fixed;
+    margin: 1% 1%;
+    width: 3%;
+    height: 4%;
+}
+.streamvideo{
+    margin: 0px 0px;
+    max-width: 48%;
+    max-height: 48%;
+}

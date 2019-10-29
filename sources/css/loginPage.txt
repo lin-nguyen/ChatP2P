@@ -1,0 +1,341 @@
+html {
+    font-family: sans-serif;
+    font-size: 20px;
+    background-color: #ffffff;
+    text-rendering: optimizeLegibility;
+    transition: all 0.5s;
+}
+
+* {
+    /* padding: 0px; */
+    margin: 0px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.clearfix::after {
+    content: " ";
+    display: table;
+    clear: both;
+}
+
+/* input{
+    outline: none;
+}
+button{
+    outline:none
+} */
+
+/* ---------------------------------------------WEBSIDE DESCRIPTION-------------------------------- */
+
+
+
+/*-----------------------------------WEB TITLE-------------------------------*/
+
+.web-description{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    height: 10vh;
+    width: 100vw;
+    box-shadow: 3px 3px 3px 3px grey;
+    background: linear-gradient(45deg,#eee,#efefef, lightgray 60%, #efefef,#fafafa,#eee)
+
+}
+.web-main-title{
+    background-color: blue;
+    display: inline-block;
+    margin-left: 30%;
+    font-size: 2em;
+    font-weight: 500;
+    background: -webkit-linear-gradient(0deg, green,lightgreen,white);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+/* 
+    background: -webkit-linear-gradient(45deg, #eee, red);
+    background: -webkit-linear-gradient(#eee, grey); */
+.span-web-title{
+    font-weight: 500;
+    background: -webkit-linear-gradient(25deg, green,white 140%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 0.9em;
+}
+/* -----------------------------INTERACTIVE AREA------------------------------ */
+.interactive-area{
+    margin-top: 10vh;
+    height: 90vh;
+    background: linear-gradient(45deg,#eee,lightgray,#efefef, #efefef,#fafafa,#eee)
+}
+
+
+/* ---------------------------------LOGIN STYLE----------------------------- */
+
+.login-form{
+    position: fixed;
+    display: inline-block;
+    width: 30vw;
+    height: 50vh;
+    margin-left: 6vw;
+    margin-top: 10vh;
+    background-color: #fafafa;
+ 
+}
+.login-form:hover{
+    box-shadow: 8px 8px 8px 8px grey;
+}
+
+.login-title{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding-bottom: 8%;
+}
+
+.log-title-head{
+    font-size: 1.3em;
+    display: inline-block;
+    font-weight: 700;
+    margin: 5% 15%;
+}
+
+.log-title-description{
+    font-size: 0.9em;
+    margin: 0 15%;
+}
+
+.login-id-contains{
+    border-radius: 10px;
+    border: solid 1px black;
+    display: flex;
+    align-items: center;
+    width: 20vw;
+    height: 5vh;
+    margin-left: 5%;
+    margin-top: 2%;
+}
+.fa-user{
+    margin: 0px 5%;
+}
+.user-ip-id-class{
+    padding-left: 5%;
+    width: 100%;
+    height: 100%;
+    margin-top: 0px;
+    border-radius: 10px;
+    font-size: 0.8em;
+}
+
+.login-ps-contains{
+    border-radius: 10px;
+    border: solid 1px black;
+    display: flex;
+    width: auto;
+    align-items: center;
+    width: 20vw;
+    height: 5vh;
+    margin-left: 5%;
+    margin-top: 2%;
+}
+
+.fa-key{
+    margin: 0px 5%;
+}
+.ps-ip-id-class{
+    padding-left: 5%;
+    width: 100%;
+    height: 100%;
+    margin-top: 0px;
+    border-radius: 10px;
+    font-size: 0.8em;
+}
+
+.log-action-class{
+    background-color:green;
+    margin-top: 10%;
+    margin-left: 30%;
+    display: inline-block;
+    text-align: center;
+    min-width: 100px;
+    border-radius: 30px;
+    font-size: 1.0em;
+    padding: 2% 2%;
+    color: white;
+    cursor: pointer;
+}
+
+.sign-control{
+    display: inline-block;
+    font-size: 0.7em;
+    margin-top: 5%;
+    margin-left: 65%;
+    padding: 1% 1%;
+    border-radius: 30px;
+}
+
+/* --------------------------------------INFO & LOGIN STYLE----------------- */
+.info-area{
+    float:right;
+    margin-right: 4vw;
+    margin-top: 6vh;
+    width: 40vw;
+    height: 70vh;
+    /* border: outset 3px green; */
+    box-shadow: 2px 2px 2px 2px darkgreen;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    border-top-right-radius: 50px;
+    border-top-left-radius: 10px;
+}
+
+.introduction-form{
+    border-radius: 50px;
+    width: 100%;
+    height: 100%;
+}
+
+.signin-form{
+    width: 100%;
+    height: 100%;
+}
+
+.signin-title{
+    font-size: 1.5em;
+    margin: 5% 20% 3% 20%;
+    font-weight: 700;
+}
+
+.sign-up-action-btn{
+    color: green;
+    cursor: pointer;
+}
+.sign-up-action-btn:hover{
+    color: red;
+}
+
+.output-signin-final{
+    float: right;
+    margin-top: -5%;
+    margin-right: 5%;
+    min-width: 200px;
+    min-height: 60px;
+    border: solid 1px black;
+    display: flex;
+    align-items: center;
+
+}
+
+.user-image-class{
+    border-radius: 50px;
+    padding: 5% 5%;
+    max-height: 70px;
+    max-width: 70px;
+}
+
+.input-signin-raw{
+    display: inline-block;
+    width: 90%;
+    height: 60%;
+    margin-left: 5%;
+}
+
+.fullname-sign-up,
+.username-sign-up,
+.password-sign-up {
+    display: block;
+    margin: 4% 3%;
+    width: 50%;
+    height: 13%;
+    background-color: red;
+}
+.fullname-action,
+.username-sign-up-action,
+.password-sign-up-action{
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+}
+.fname-sign-up-class,
+.user-sign-up-class,
+.paw-sign-up-class{
+    box-shadow: 1px 1px 1px 1px darkgreen;
+    border: none;
+    width: 100%;
+    height: 100%;
+    padding-left: 5%;
+}
+.fname-sign-up-class:focus,
+.user-sign-up-class:focus,
+.paw-sign-up-class:focus{
+    box-shadow: 2px 2px 2px 2px green;
+}
+
+
+.image-sign-up{
+    display: block;
+    margin: 4% 8%;
+    width: 90%;
+    height: 13%;
+}
+
+.avatar-sign-up-action{
+    display: inline-block;
+    font-size: 2em;
+}
+
+.label-file-input{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.label-file-input:hover{
+    color: orange;
+}
+
+.imageDesciption{
+    font-size: 0.4em;
+    display: inline-block;
+    margin-left: 10%;
+}
+
+.alertException{
+    float: right;
+    margin-top: 4%;
+    margin-right: -3%;
+    width: 50%;
+    height: 50%;
+}
+.alert-exception-class{
+    
+}
+.alertUl {
+    list-style: none;
+    color: red;
+}
+.alertUl li{
+    margin-bottom: 3%;
+    font-size: 0.6em;
+}
+.btn-signin-action{
+    float: right;
+    margin-right: 20%;
+}
+.btn-sign-action-class{
+    color: white;
+    background-color: green;
+    padding: 10% 5%;
+    text-align: center;
+    min-width: 100px;
+    border-radius: 40px;
+    cursor:pointer;
+}
+/* --------------------------------------DESCRIPTION STYLE--------------------- */
+.description-form{
+    position: relative;
+    height: 9vh;
+    margin-left: 10vw;
+}
+.description-text{
+    font-style: oblique;
+    font-size: 0.8em;
+}

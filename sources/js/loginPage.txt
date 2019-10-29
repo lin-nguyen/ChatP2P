@@ -1,0 +1,123 @@
+
+
+$('#sign-up-action-click').click((event) => {
+    const bool = $(this).attr('display');
+    if (bool === 'false') {
+        $(this).attr('display', 'true');
+        $('#signin-form-id').show();
+        $('#info-form-id').hide();
+    }
+    else {
+        $(this).attr('display', 'false');
+        $('#signin-form-id').hide();
+        $('#info-form-id').show();
+    }
+})
+
+var b1 = false, b2 = false, b3 = false;
+
+function Alert() {
+    if (b1 && b2 && b3) {
+        $('.alertUl').hide();
+    }
+    else {
+        $('.alertUl').show();
+    }
+}
+
+$('#user-sign-up-id').on('input', function () {
+    if ($(this).val().length == 0) {
+        b1 = false;
+        $('#user-alert').text('Your username needs at least 1');
+        $('#user-alert').show();
+    }
+    else {
+        $.ajax({
+            type: 'POST',
+            url: '/username-check',
+            data: { data: $(this).val() }
+        }).done((data) => {
+            if (!data) {
+                b1 = false;
+                $('#user-alert').show();
+                $('#user-alert').text('Your username is not available');
+            }
+            else {
+                b1 = true;
+                $('#user-alert').hide();
+            }
+        })
+    }
+    Alert()
+})
+
+$('#paw-sign-up-id').on('input', function () {
+    if ($(this).val().length < 6) {
+        $('#paw-alert').show();
+        b2 = false;
+    }
+    else {
+        $('#paw-alert').hide();
+        b2 = true;
+    }
+    Alert()
+})
+
+$('#fname-sign-up-id').on('input', function () {
+    if ($(this).val().length == 0) {
+        $('#fname-alert').show();
+        b3 = false;
+    }
+    else {
+        $('#fname-alert').hide();
+        $('.output-name-display').text($(this).val())
+        b3 = true;
+    }
+    Alert()
+})
+
+$('#avatar-sign-up-id').change((event) => {
+    $('#user-image-id').attr('src', URL.createObjectURL(event.target.files[0]))
+})
+
+$('#btn-sign-action-id').click(event => {
+    if (b1 && b2 && b3) {
+        const jsonAccount = {
+            username: $('#user-sign-up-id').val(),
+            password: $('#paw-sign-up-id').val(),
+            fullname: $('#fname-sign-up-id').val(),
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/create-Account',
+            data: jsonAccount
+        }).done(call => {
+            if (call.bool) {
+                var file = $('#avatar-sign-up-id')[0].files[0]
+                if (file != undefined) {
+                    var formData = new FormData()
+                    files = file.name.split('.')
+                    files = (call.id + "." + files[1])
+                    formData.append('avatar', file, files);
+                    $.ajax({
+                        type: 'POST',
+                        data: formData,
+                        url: '/avatar-new-account',
+                        processData: false,
+                        crossDomain: true,
+                        contentType: false
+                    }).done(call => {
+                    })
+                }
+                else {
+                    $.ajax({
+                        type: 'POST',
+                        data: { id: call.id },
+                        url: '/avatar-default'
+                    })
+                }
+            }
+        })
+        window.location.reload()
+    }
+})
