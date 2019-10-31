@@ -87,12 +87,12 @@
 
         <div class="interactive-chat-area">
             <div class="sign-out-contains">
-                <p class="signOut-actions">Sign out</p>
+                <p class="signOut-actions" id="id-sign-out-action">Sign out</p>
             </div>
             <p class="file-transfer-interaction">
                 <input type="file" id="file-image-transfer" rID="root" accept="img/*" style="display: none;">
                 <label for="file-image-transfer" class="label-image-transfer">
-                    <i class="far fa-images" title="Select your image here!"></i>
+                    <i id="fa-image-tt" class="far fa-images" title="Select your image here!"></i>
                 </label>
             </p>
             <p id="videoc-tranf-inte" class="videocall-transfer-interaction" rID="root"><i class="fas fa-video"></i></p>
@@ -193,7 +193,7 @@
                         </div>
                         <div class="fullname-sign-up">
                             <p class="fullname-action">
-                                <input type="text" id="fname-sign-up-id" class="fname-sign-up-class" maxlength="12"
+                                <input type="text" id="fname-sign-up-id" class="fname-sign-up-class" maxlength="24"
                                     autocomplete="off" placeholder="Your display name:">
                             </p>
                         </div>
@@ -214,7 +214,7 @@
                                 <input type="file" id="avatar-sign-up-id" class="avatar-sign-up-class"
                                     autocomplete="off" accept="image/*" style="display: none;"
                                     value="sources/image/unknow-avatar.png">
-                                <label for="avatar-sign-up-id" class="label-file-input"><i class="far fa-images"></i>
+                                <label for="avatar-sign-up-id" class="label-file-input"><i  class="far fa-images"></i>
                                     <em class="imageDesciption">Put your avatar here</em>
                                 </label>
                             </p>

@@ -6,6 +6,25 @@ html {
     transition: all 0.5s;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+  
 * {
     margin: 0px;
     box-sizing: border-box;
@@ -206,6 +225,7 @@ html {
     margin-right: 5%;
     min-width: 200px;
     min-height: 60px;
+    width: auto;
     border: solid 1px black;
     display: flex;
     align-items: center;
@@ -259,9 +279,9 @@ html {
 
 
 .image-sign-up{
-    display: block;
-    margin: 4% 8%;
-    width: 90%;
+    display: inline-block;
+    margin: 4% 1%;
+    width: auto;
     height: 13%;
 }
 
@@ -271,10 +291,20 @@ html {
 }
 
 .label-file-input{
-    display: flex;
-    align-items: center;
     cursor: pointer;
+    width: auto;
+    display: flex;
 }
+
+.fa-images{
+    margin-left: 20%;
+    display: inline-block;
+}
+
+.label-file-input em {
+    width: 12vw;
+}
+
 .label-file-input:hover{
     color: orange;
 }
@@ -369,8 +399,8 @@ html {
 }
 .add-avatar-option img{
     margin-right: 4%;
-    max-width: 35px;
-    max-height: 35px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
 }
 .submit-request-broatcast{
@@ -465,8 +495,8 @@ html {
 
 .img-status-options{
     border-radius: 50%;
-    max-width: 40px;
-    max-height: 40px;
+    width: 40px;
+    height: 40px;
 }
 .l-o-s-u{
     margin-left: 5%;
@@ -659,7 +689,7 @@ html {
 .avatar-img{
     cursor: pointer;
     width: 40px;
-    max-height: 40px;
+    height: 40px;
     border-radius: 50%;
     margin-right: 3%;
 
@@ -783,7 +813,7 @@ html {
     color: green;
     cursor: pointer;
 }
-.fa-images{
+#fa-image-tt{
     margin-left: 40%;
     font-size: 2em;
 }
@@ -816,8 +846,8 @@ html {
     margin-bottom: 20%;
     border-radius: 50%;
     display: block;
-    max-width: 60px;
-    max-height: 60px;
+    width: 60px;
+    height: 60px;
 }
 
 /* ----------------------------------DISPLAY IMAGE-------------------- */
