@@ -199,6 +199,18 @@ html {
     width: 100%;
     height: 100%;
 }
+.introduction-form p{
+    font-weight: 700;
+    margin-left: 10%;
+    margin-top: 5%;
+}
+.introduction-form img{
+    border-radius: 15%;
+    margin-top: 5%;
+    margin-left: 10%;
+    width: 80%;
+    height: 80%;
+}
 
 .signin-form{
     width: 100%;
@@ -233,10 +245,10 @@ html {
 }
 
 .user-image-class{
-    border-radius: 50px;
+    border-radius: 50%;
     padding: 5% 5%;
-    max-height: 70px;
-    max-width: 70px;
+    height: 70px;
+    width: 70px;
 }
 
 .input-signin-raw{
@@ -587,7 +599,7 @@ html {
 }
 .now-message-ul-showing li p{
     margin-left: 15%;
-    display: inline;
+    width: 80%;
     overflow: hidden;
 }
 .now-message-ul-showing li p img{

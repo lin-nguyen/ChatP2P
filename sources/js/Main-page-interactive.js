@@ -17,7 +17,7 @@ $('#sign-up-action-click').click((event) => {
 var b1 = false, b2 = false, b3 = false;
 
 function Alert() {
-    if (b1 && b2 && b3) {
+    if (b1 && b2 && b3) {   
         $('.alertUl').hide();
     }
     else {
@@ -124,11 +124,11 @@ $('#btn-sign-action-id').click(event => {
     }
 })
 
-$('#user-ip-id-get').on('input', function (event) {
+$('#user-ip-id-get').keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if (keycode == '13') $("#log-action-id-send").click();
 })
-$('#ps-ip-id-get').on('input', function (event) {
+$('#ps-ip-id-get').keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if (keycode == '13') $("#log-action-id-send").click();
 })
@@ -191,21 +191,21 @@ $('#add-new-box-msg').click(event => {
 
 
 ////////////------------------------------------------PEER-------------------------------------------------------
-const socket = io('localhost:5000');
-var peer = new Peer();
-// const socket = io('https://shareantbox.herokuapp.com/')
-// const customConfig = {
-//     iceServers: [{   urls: [ "stun:ss-turn2.xirsys.com" ]}, {   username: "MjO-Nz29xCsnlhuCxMHliyx7pDHAna4I911U9kPUWb9e0vLvqKjg9f_0N12IiQofAAAAAF2wZq9idWlsb25n",   credential: "3fde531e-f5a3-11e9-84a8-322c48b34491",   urls: [       "turn:ss-turn2.xirsys.com:80?transport=udp",       "turn:ss-turn2.xirsys.com:3478?transport=udp",       "turn:ss-turn2.xirsys.com:80?transport=tcp",       "turn:ss-turn2.xirsys.com:3478?transport=tcp",       "turns:ss-turn2.xirsys.com:443?transport=tcp",       "turns:ss-turn2.xirsys.com:5349?transport=tcp"   ]}]
-// }
+// const socket = io('localhost:5000');
+// var peer = new Peer();
+const socket = io('https://shareantbox.herokuapp.com/')
+const customConfig = {
+    iceServers: [{   urls: [ "stun:ss-turn2.xirsys.com" ]}, {   username: "MjO-Nz29xCsnlhuCxMHliyx7pDHAna4I911U9kPUWb9e0vLvqKjg9f_0N12IiQofAAAAAF2wZq9idWlsb25n",   credential: "3fde531e-f5a3-11e9-84a8-322c48b34491",   urls: [       "turn:ss-turn2.xirsys.com:80?transport=udp",       "turn:ss-turn2.xirsys.com:3478?transport=udp",       "turn:ss-turn2.xirsys.com:80?transport=tcp",       "turn:ss-turn2.xirsys.com:3478?transport=tcp",       "turns:ss-turn2.xirsys.com:443?transport=tcp",       "turns:ss-turn2.xirsys.com:5349?transport=tcp"   ]}]
+}
 
 
-// const peer = new Peer({
-//     key: 'peerjs',
-//     host: 'peer-server-call.herokuapp.com',
-//     secure: true,
-//     port: 443,
-//     config: customConfig
-// });
+const peer = new Peer({
+    key: 'peerjs',
+    host: 'peer-server-call.herokuapp.com',
+    secure: true,
+    port: 443,
+    config: customConfig
+});
 
 peer.on('open', id => {
     peerObj.IP = id;
