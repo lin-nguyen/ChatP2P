@@ -13,7 +13,7 @@
     <div class="chatAction">
         <div class="now-message-box">
             <div class="control-now-message-request">
-                <p class="num-now-message"> Now message box: </p>
+                <p class="view-information" id="view-info-event-id"><i class="fas fa-user-circle"></i></p>
                 <p class="add-new-box-message" id="add-new-box-msg">
                     <i class="fas fa-plus"></i>
                 </p>
@@ -54,7 +54,7 @@
                             <p class="guest-name-inside">Thuy Hien</p>
                             <p class="msg-show">
                                 <img class="avatar-img" src="../image/kivio.png">
-                                <span class="msg-text">Hi!</span>
+                                <span class="msg-text" dir="ltr">Hi!</span>
                             </p>
                         </li>
                         <div class="clearfix"></div>
@@ -62,7 +62,7 @@
                             <p class="guest-name-inside">Thuy Duong</p>
                             <p class="msg-show">
                                 <img class="avatar-img" src="../image/av1.png" alt="">
-                                <span class="msg-text">Hi!</span>
+                                <span class="msg-text" dir="ltr">Hi!</span>
                             </p>
                         </li>
                         <div class="clearfix"></div>
@@ -70,17 +70,18 @@
                             <p class="host-name-inside">Bùi Phi Long</p>
                             <p class="msg-show">
                                 <img class="avatar-img" src="../image/bpl.png" alt="">
-                                <span class="msg-text">Hello!</span>
+                                <span class="msg-text" dir="ltr">Hello!</span>
                             </p>
                         </li>
                         <div class="clearfix"></div>
                         <li class="message-host" dir="rtl">
-                                <p class="host-name-inside">Bùi Phi Long</p> 
-                                <p class="msg-show">
-                                    <img class="avatar-img" alt="" src="../image/unknow-avatar.png">
-                                     <img class="msg-img" src="../image/primary avt.png" alt="">
-                                    </p>
-                            </li>
+                            <p class="host-name-inside">Bùi Phi Long</p>
+                            <p class="msg-show">
+                                <img class="avatar-img" alt="" src="../image/unknow-avatar.png">
+                                <img class="msg-img" src="../image/primary avt.png" alt="">
+                            </p>
+                        </li>
+                        <div class="clearfix"></div>
                     </ul>
                 </div>
             </div>
@@ -89,7 +90,7 @@
                 <input type="text" class="input-send-message" id="input-send-msg-id"
                     placeholder="Enter your message here!">
                 <p class="btn-send-message" id="btn-send-msg-id" rID="root"><i class="fas fa-paper-plane"></i></p>
-                
+
             </div>
         </div>
 
@@ -105,6 +106,23 @@
             </p>
             <p id="videoc-tranf-inte" class="videocall-transfer-interaction" rID="root"><i class="fas fa-video"></i></p>
             <div class="group-avatar-show" id="group-avt-s-id">
+            </div>
+        </div>
+        <div class="Infomation_user" id="info-user-id" style="display: none;">
+            <div class="opacity-background"></div>
+            <div class="info-contains-ant" id="info-contains-ant-id">
+                <p class="close-action-view" id="cl-act-v-id"><i class="fas fa-minus"></i></p>
+                <img class="img-user-show" id="img-user-id" src="../image/bpl.png" alt="">
+                <div class="clearfix"></div>
+                <p class="view-fullname" >Your name: <span id="view-fname">Bùi Phi Long</span></p>
+                <p class="view-username" >Username: <span id="view-uname">Loading...</span></p>
+                <p class="view-box-chat-now" >Session groups: <span id="view-boxchat-id">4</span></p>
+                <p class="alert-not-satify">Your password needs at least 6 characters</p>
+                <p class="change-password-f" ><input id="cg-paw-f" type="password" placeholder="Your new password here!"></p>
+                <p class="alert-not-match">Your password do not match!</p>
+                <p class="change-password-s" > <input id="cg-paw-s" type="password" placeholder="Confirm new password!"></p>
+                <p class="alert-done-confim">Your password has been changed successfully</p>
+                <p class="confirm-password" id="confim-paw-id">Confirm</p>
             </div>
         </div>
 
@@ -154,6 +172,7 @@
                     <div class="log-title-head">Always Together </div>
                     <div class="log-title-description">Simple way to share your story !</div>
                 </div>
+                <p class="raise-fail-login" id="raise-fail-l-id">Failed to sign up!</p>
                 <p class="login-id-contains">
                     <i class="fas fa-user"></i>
                     <input placeholder="Your username!" name="username" type="text" id="user-ip-id-get"
@@ -237,6 +256,10 @@
             <div class="clearfix"></div>
             <div class="description-form">
                 <p class="description-text">Products bring people together more safely</p>
+            </div>
+            <div class="clearfix"></div>
+            <div class="waiting-for" id="waiting-for-login">
+                <p>Waiting for sign in</p>
             </div>
         </div>
     </div>

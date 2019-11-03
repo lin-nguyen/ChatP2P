@@ -109,6 +109,15 @@ html {
     margin: 0 15%;
 }
 
+.raise-fail-login{
+    visibility: hidden;
+    font-size: 0.8em;
+    color: red;
+    margin-left: 30%;
+    margin-top: -3%;
+    font-style:oblique;
+}
+
 .login-id-contains{
     border-radius: 10px;
     border: solid 1px black;
@@ -366,6 +375,24 @@ html {
     font-size: 0.8em;
 }
 
+.waiting-for{
+    display: none;
+    align-items: center;
+    position: fixed;
+    width: 40vw;
+    height: 50vh;
+    margin-left: 6vw;
+    margin-top: -75vh;
+    background-color: gray;
+    opacity: 0.7;
+}
+
+.waiting-for p{
+    text-align: center;
+    width: 100%;
+    color: white;
+    font-weight: 700;
+}
 /* --------------------------ACCOUNT STATUS LEFT STYLE----------------------- */
 .search-account-div{
     position: fixed;
@@ -550,11 +577,159 @@ html {
     align-items: center;
 }
 
-.num-now-message{
-    font-size: 0.8em;
-    width: 65%;
+.view-information{
+    color: green;
+    font-size: 2em;
+    margin-top: 3%;
+    margin-right: 40%;
+    margin-left: 10%;
+    cursor: pointer;
+}
+
+.view-information:hover{
+    color: orange;
+}
+
+.Infomation_user{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+}
+.opacity-background{
+    position: fixed;
+    background: black;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.5;
+}
+.info-contains-ant{
+    position: fixed;
+    width: 30vw;
+    height: 55vh;
+    background-color: white;
+    margin-top: 20vh;
+    margin-left: 60vw;
+    border-radius: 10px;
+}
+.close-action-view{
+    float:right;
+    font-size: 1.5em;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    text-align: center;
+    margin: 1% 2%;
+    cursor: pointer;
+    color: green;
+}
+.close-action-view:hover{
+    color: red;
+}
+.img-user-show{
     margin-left: 5%;
+    margin-top: 5%;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+.view-fullname{
+    float: right;
+    font-size: 0.9em;
     font-style: oblique;
+    margin-top: -10%;
+    margin-right: 15%;
+}
+.view-fullname span{
+    font-weight: 700;
+}
+.view-username{
+    font-size: 0.8em;
+    font-style: oblique;
+    float: right;
+    margin-top: -5%;
+    margin-right: 15%;
+}
+.view-box-chat-now{
+    font-size: 0.8em;
+    font-style: oblique;
+    float: right;
+    margin-right: 15%;
+}
+.alert-not-satify{
+    margin-top: 10%;
+    font-size: 0.7em;
+    margin-left: 15%;
+    color: red;
+    visibility: hidden;
+}
+.change-password-f{
+    display: inline-block;
+    margin-top: 3%;
+    width: 80%;
+    height: 7%;
+    display: flex;
+    align-items: center;
+    padding-left: 10%;
+}
+.change-password-f input{
+    font-size: 0.7em;
+    padding-left: 10%;
+    height: 100%;
+    border-radius: 10%;
+    border: outset 3px green;
+}
+
+.alert-not-match{
+    display: none;
+    margin-top: 2%;
+    margin-left: 15%;
+    font-size: 0.7em;
+    color: red;
+}
+
+.change-password-s{
+    display: inline-block;
+    margin-top: 3%;
+    width: 80%;
+    height: 7%;
+    display: flex;
+    align-items: center;
+    padding-left: 10%;
+    transition: all 0.2s;
+}
+.change-password-s input{
+    font-size: 0.7em;
+    padding-left: 10%;
+    height: 100%;
+    border-radius: 10%;
+    border: outset 3px green;
+}
+
+.alert-done-confim{
+    font-size: 0.7em;
+    margin-top: 5%;
+    margin-left: 15%;
+    color: green;
+    text-decoration: underline;
+    display: none;
+}
+.confirm-password{
+    background-color: green;
+    box-shadow: 2px 2px 2px 2px darkgreen;
+    cursor: pointer;
+    display: inline-block;
+    padding: 3% 3%;
+    border-radius: 20%;
+    margin-left: 40%;
+    margin-top: 5%;
+    color: white;
+    font-weight: 700;
+    transition: all 0.2s;
+}
+
+
+.confirm-password:hover{
+    color: orange;
 }
 
 .add-new-box-message{
@@ -860,6 +1035,7 @@ html {
     display: block;
     width: 60px;
     height: 60px;
+    cursor: pointer;
 }
 
 /* ----------------------------------DISPLAY IMAGE-------------------- */

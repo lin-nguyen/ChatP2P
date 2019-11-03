@@ -52,6 +52,12 @@ app.post('/login-request', (req, res, next) => {
         if (listOffline[index].password == password) {
             res.send({bool:true, ID: listOffline[index].ID, name: listOffline[index].fullname})
         }
+        else {
+            res.send({bool:false})
+        }
+    }
+    else {
+        res.send({bool:false})
     }
 })
 
@@ -94,6 +100,7 @@ app.post('/avatar-default', (req, res, next) => {
 // ---------------------------------------------INTERACT PROCESSION-------------------------------------------
 
 io.on('connection', function (socket) {
+    
     socket.on('newPeerOnline', Ix => {
         const user = Ix.username;
         const index = listOffline.findIndex(e => e.username == user);
@@ -120,6 +127,21 @@ io.on('connection', function (socket) {
 
     })
 
+    socket.on('getUserData', ID=>{
+        socket.emit('responseUserData', socket.account.username)
+    })
+
+    socket.on('change-pass-word', Obj=>{
+        socket.account.password = Obj.password;
+        var TempList = loadDatabase();
+        const index = TempList.findIndex(e=> e.ID == Obj.ID);
+        TempList[index].password = Obj.password;
+        for (var i = 0; i < TempList.length; i++){
+            TempList[i] = JSON.stringify(TempList[i])
+        }
+        fs.writeFileSync('./server/database/userAccount.txt',TempList.join(',\n'));
+    })
+
     socket.on('newSignOffline', Ix =>{
         const srcs = fs.readFileSync(`./server/avatar-img/${Ix.ID}.png`).toString('base64')
         const account  = {
@@ -130,12 +152,13 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('new-offline-user', account)
     })
 
-    socket.on('get-images-buffer', id => {
+    socket.on('get-images-buffer', list => {
+        console.log("listOn-Off get:\t" + new Date().getTime() / 1000)
         const listImage = []
-        id.list.forEach(el => {
+        list.forEach(el => {
             listImage.push(fs.readFileSync(`./server/avatar-img/${el}.png`).toString('base64'))
         });
-        socket.emit("list-avatar-buffer-" + id.state, listImage)
+        socket.emit("list-avatar-buffer", listImage)
     })
     socket.on('disconnect', () => {
         const index = listOnline.findIndex(e => e.IP == socket.IP);

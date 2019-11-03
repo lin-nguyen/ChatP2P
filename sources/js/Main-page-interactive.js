@@ -17,7 +17,7 @@ $('#sign-up-action-click').click((event) => {
 var b1 = false, b2 = false, b3 = false;
 
 function Alert() {
-    if (b1 && b2 && b3) {   
+    if (b1 && b2 && b3) {
         $('.alertUl').hide();
     }
     else {
@@ -143,11 +143,13 @@ $("#log-action-id-send").click(event => {
         }
     }).done((boo) => {
         if (boo.bool) {
-            $('.LOGIN-SIGNUP').hide();
+            console.log(new Date().getTime() / 1000)
+            $('#raise-fail-l-id').css('visibility', 'hidden')
+            $('#waiting-for-login').css('display', 'flex')
             emitNewUser(boo.ID, boo.name);
         }
         else {
-            window.location.reload();
+            $('#raise-fail-l-id').css('visibility', 'visible')
         }
     })
 })
@@ -188,15 +190,66 @@ $('#add-new-box-msg').click(event => {
     $('#account-status-req-id').show()
 })
 
+$('#view-info-event-id').click(e => {
+    $('#img-user-id').attr('src',$(`#list-online-ul-s-id [IP = ${peerObj.IP}]`).find('img').attr('src'))
+    $('#info-user-id').show();
+    $('#view-fname').text(peerObj.Name);
+    $('#view-boxchat-id').text(peerObj.numBoxChat);
+    socket.emit('getUserData', peerObj.ID)
+    socket.on('responseUserData', username => {
+        $('#view-uname').text(username);
+    })
+})
+$('#cl-act-v-id').click(e => {
+    $('#info-user-id').hide();
+    $('.alert-done-confim').hide();
+})
+var boolF = false, boolS = false;
+$('#cg-paw-f').on('input',function (event) {
+    if ($(this).val().length < 6) {
+        boolF= false;
+        $('.alert-not-satify').css('visibility', 'visible');
+    }
+    else {
+        $('.alert-not-satify').css('visibility', 'hidden');
+        boolF =true;
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') { $('#confim-paw-id').click() }
+    }
+})
+$('#cg-paw-s').on('input',function (event) {
+    if ($(this).val().trim() != $('#cg-paw-f').val().trim()) {
+        boolS= false;
+        $('.alert-not-match').show();
+    }
+    else {
+        $('.alert-not-match').hide();
+        boolS = true;
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') { $('#confim-paw-id').click() }
+    }
+})
 
-
+$('#confim-paw-id').click(function (event){
+    socket.emit('change-pass-word', {ID: peerObj.ID, password: $('#cg-paw-f').val().trim()})
+    $('.alert-done-confim').show();
+})
 ////////////------------------------------------------PEER-------------------------------------------------------
 // const socket = io('localhost:5000');
 // var peer = new Peer();
 const socket = io('https://shareantbox.herokuapp.com/')
 const customConfig = {
-    iceServers: [{   urls: [ "stun:ss-turn2.xirsys.com" ]}, {   username: "MjO-Nz29xCsnlhuCxMHliyx7pDHAna4I911U9kPUWb9e0vLvqKjg9f_0N12IiQofAAAAAF2wZq9idWlsb25n",   credential: "3fde531e-f5a3-11e9-84a8-322c48b34491",   urls: [       "turn:ss-turn2.xirsys.com:80?transport=udp",       "turn:ss-turn2.xirsys.com:3478?transport=udp",       "turn:ss-turn2.xirsys.com:80?transport=tcp",       "turn:ss-turn2.xirsys.com:3478?transport=tcp",       "turns:ss-turn2.xirsys.com:443?transport=tcp",       "turns:ss-turn2.xirsys.com:5349?transport=tcp"   ]}]
+    iceServers: [{ urls: ["stun:ss-turn2.xirsys.com"] }, { username: "MjO-Nz29xCsnlhuCxMHliyx7pDHAna4I911U9kPUWb9e0vLvqKjg9f_0N12IiQofAAAAAF2wZq9idWlsb25n", credential: "3fde531e-f5a3-11e9-84a8-322c48b34491", urls: ["turn:ss-turn2.xirsys.com:80?transport=udp", "turn:ss-turn2.xirsys.com:3478?transport=udp", "turn:ss-turn2.xirsys.com:80?transport=tcp", "turn:ss-turn2.xirsys.com:3478?transport=tcp", "turns:ss-turn2.xirsys.com:443?transport=tcp", "turns:ss-turn2.xirsys.com:5349?transport=tcp"] }]
 }
+
+// const customConfig = {
+//     gateway:"https://global.xirsys.net",
+//     info:{
+//         ident:"builong",
+//         secret:"ecb61d30-f56a-11e9-8c84-0242ac110004",
+//         channel:"videomedia.herokuapp.com"
+//     }
+// }    
 
 
 const peer = new Peer({
@@ -210,6 +263,7 @@ const peer = new Peer({
 peer.on('open', id => {
     peerObj.IP = id;
 })
+
 var peerObj = {
     IP: "peerIP",
     Name: "peerName",
@@ -221,6 +275,7 @@ var peerObj = {
     nowFistBox: "root",
     listBoxChat: []
 }
+
 var tempRoom = { rLID: [], rLIP: [], rLName: [] }
 
 peer.on("connection", conn => {
@@ -308,12 +363,14 @@ socket.on('listOn-Off', list => {
         listImage.push(e.ID)
     })
     const onlineL = list.listOn.length, offlineL = list.listOff.length;
-    socket.emit('get-images-buffer', { list: listImage, state: "la" })
+    socket.emit('get-images-buffer', listImage)
 
-    socket.on('list-avatar-buffer-la', listImage => {
+    console.log("listOn-Off get:\t" + new Date().getTime() / 1000)
+    $('.LOGIN-SIGNUP').hide();
+    socket.on('list-avatar-buffer', listImage => {
         for (var i = 0; i < onlineL; i++) {
             $('#list-online-ul-s-id').append(`
-                <li class="list-online-li-style" check = "false" data="${list.listOn[i].fullname},${list.listOn[i].ID}" IP="${list.listOn[i].IP}">
+                <li class="list-online-li-style" check = "false" data="${list.listOn[i].fullname}" IP="${list.listOn[i].IP}">
                     <img class="img-status-options" src="${"data:image/png;base64," + listImage[i]}" alt="Nothing">
                     <span class="l-o-s-u">${list.listOn[i].fullname}</span>
                     <i class="fas fa-circle fa-online"></i>
@@ -327,11 +384,12 @@ socket.on('listOn-Off', list => {
                 <i class="fas fa-circle fa-offline"></i>`)
             $('#list-offline-ul-s-id').append(li)
         }
+        console.log("Display On-off:\t" + new Date().getTime() / 1000)
     })
     socket.on('new-online-user', account => {
         $(`#list-offline-ul-s-id [IP="${account.ID}"]`).remove()
         $('#list-online-ul-s-id').append(`
-            <li class="list-online-li-style" check = "false" data="${account.fullname},${account.ID}" IP="${account.IP}">
+            <li class="list-online-li-style" check = "false" data="${account.fullname}" IP="${account.IP}">
                 <img class="img-status-options" src="data:image/png;base64,${account.src}" alt="Nothing">
                 <span class="l-o-s-u">${account.fullname}</span>
                 <i class="fas fa-circle fa-online"></i>
@@ -359,11 +417,6 @@ socket.on('listOn-Off', list => {
 
 // BOX-CHAT------------------------------------------------------------
 
-function swapNewBox(Obj) {
-    // const nowF = peerObj.nowFistBox;
-    $(`#${peerObj.nowFistBox}`).before($(`#${Obj}`))
-}
-
 function checkExist(List, tList) {
     var returnCheck = "";
     List.forEach(e => {
@@ -386,11 +439,10 @@ $('#submit-request-bc-id').click(event => {
         let roomID = Math.random().toString(36).substring(7);
         room.rID = roomID;
         OpenBoxChat(room);
-        // peerObj.listBoxChat.push(room);
         peerObj.nowBoxChatNum = peerObj.numBoxChat - 1;
     }
     else {
-        $(`#now-msg-show-stt [rID = ${returnV}`).click()
+        $(`#now-msg-show-stt [rID = ${returnV}]`).click()
     }
     $(`#add-avt-id-options`).html('');
     $('.chat-with-showing-user').css('visibility', 'hidden');
@@ -406,54 +458,47 @@ function OpenBoxChat(Obj) {
     if (!checkExist) {
         Obj.rLName = [peerObj.Name.toString()].concat(Obj.rLName);
         Obj.rLIP = [peerObj.IP.toString()].concat(Obj.rLIP);
-        Obj.rLID = [peerObj.ID.toString()].concat(Obj.rLID);
     }
     const length = Obj.rLName.length;
     for (var i = 0; i < length; i++) {
         const conn = peer.connect(Obj.rLIP[i])
         conn.on('open', function () {
-            conn.send({ action: "openBoxChat", rID: Obj.rID, rLIP: Obj.rLIP, rLID: Obj.rLID, rLName: Obj.rLName });
+            conn.send({ action: "openBoxChat", rID: Obj.rID, rLIP: Obj.rLIP, rLName: Obj.rLName });
         })
     }
     createBoxChat(Obj)
 }
 
 function createBoxChat(Obj) {
-    updateListMessage(Obj)
-    boxShowing(Obj.rID)
-    peerObj.listBoxChat.push({ rID: Obj.rID, rLName: Obj.rLName, rLID: Obj.rLID, rLIP: Obj.rLIP })
-
+    updateListMessage(Obj);
+    boxShowing(Obj.rID);
+    peerObj.listBoxChat.push({ rID: Obj.rID, rLName: Obj.rLName, rLIP: Obj.rLIP });
     updateNowboxChat(Obj);
     $('#msg-area-body-id').append(`
         <ul class="message-area-ul-show" id="msg-area-ul-s-id" rID =${Obj.rID}>
         </ul>
     `)
     $(`#now-msg-show-stt [rID = ${Obj.rID}]`).prependTo('#now-msg-show-stt')
-    // swapNewBox(Obj.rID)
-    // peerObj.nowFistBox = Obj.rID;
     peerObj.numBoxChat++;
 }
-
 function updateListMessage(Obj) {
-    socket.emit("get-images-buffer", { list: Obj.rLID, state: Obj.rID })
     var pImage = "";
-    socket.on('list-avatar-buffer-' + Obj.rID, listImage => {
-        const lst = Obj.rLIP;
-        var i = 0;
-        listImage.forEach(e => {
-            pImage += `<img src="data:image/png;base64,${e}" root="${lst[i]}" alt="">`;
-            i++;
-        })
-        $('#now-msg-show-stt').prepend(`
-            <li rID="${Obj.rID}">
-                        <p>${Obj.rLName.join(', ')}</p>
-                        <br>
-                        <p>${pImage}</p>
-                    </li>`)
-        $(`#now-msg-show-stt [rID = "${Obj.rID}"]`).css('background-color', 'lightgray')
-        $(`#now-msg-show-stt [rID = "${Obj.rID}"]`).css('border', 'solid 1px green')
-        $('#group-avt-s-id').html(`${pImage}`)
-    })
+    Obj.rLIP.forEach(e => {
+        pImage += `<img src="${$(`#list-online-ul-s-id [IP = ${e}]`).find('img').attr('src')}" root="${e}" alt="">`;
+    });
+    var str = Obj.rLName.join(', ');
+    if (str.length > 15) {
+        str = str.substring(0, 13) + "..."
+    }
+    $('#now-msg-show-stt').prepend(`
+        <li rID="${Obj.rID}">
+                    <p>${str}</p>
+                    <br>
+                    <p>${pImage}</p>
+                </li>`)
+    $(`#now-msg-show-stt [rID = "${Obj.rID}"]`).css('background-color', 'lightgray')
+    $(`#now-msg-show-stt [rID = "${Obj.rID}"]`).css('border', 'solid 1px green')
+    $('#group-avt-s-id').html(`${pImage}`)
 }
 
 function boxShowing(ID) {
@@ -476,18 +521,8 @@ function updateNowboxChat(Obj) {
     $('#videoc-tranf-inte').attr('rID', peerObj.nowBoxChat);
     $('#btn-send-msg-id').attr('rID', peerObj.nowBoxChat);
 
-    const stt = Math.random().toString(36).substring(7);
-    socket.emit("get-images-buffer", { list: Obj.rLID, state: stt })
-    var pImage = "";
-    socket.on('list-avatar-buffer-' + stt, listImage => {
-        const lst = Obj.rLIP;
-        var i = 0;
-        listImage.forEach(e => {
-            pImage += `<img src="data:image/png;base64,${e}" alt="">`;
-            i++;
-        })
-        $('#group-avt-s-id').html(`${pImage}`)
-    })
+    const html = $(`#now-msg-show-stt [rID = ${Obj.rID}]`).find('p')[1].innerHTML
+    $('#group-avt-s-id').html(html)
 }
 
 
@@ -519,36 +554,30 @@ $('#btn-send-msg-id').click(event => {
         const index = peerObj.nowBoxChatNum;
         $('#input-send-msg-id').val('');
         const listIP = peerObj.listBoxChat[index].rLIP;
-        const Obj = { action: "sendMessageText", rID: peerObj.nowBoxChat, sourceName: peerObj.Name, sourceID: peerObj.ID, sourceText: text };
+        const Obj = { action: "sendMessageText", rID: peerObj.nowBoxChat, sourceName: peerObj.Name, sourceIP: peerObj.IP, sourceText: text };
+        renderTextMessage(Obj, true)
         listIP.forEach(e => {
             const conn = peer.connect(e);
             conn.on('open', () => {
                 conn.send(Obj)
             })
         })
-        renderTextMessage(Obj, true)
     }
 })
 function renderTextMessage(Obj, bool) {
-    const stt = Math.random().toString(36).substring(7);
-    socket.emit("get-images-buffer", { list: [Obj.sourceID], state: stt })
+    // const pImage = `<img class="avatar-img" src="${$(`#list-online-ul-s-id [IP = ${Obj.sourceIP}]`).find('img').attr('src')}"alt="">`;
     const extens = ((bool) ? "host" : "guest")
-    socket.on('list-avatar-buffer-' + stt, img => {
-        $(`#msg-area-body-id [rID=${Obj.rID}]`).append(`
+    $(`#msg-area-body-id [rID=${Obj.rID}]`).append(`
         <li class="message-${extens}" dir="${((bool) ? "rtl" : "ltr")}">
             <p class="${extens}-name-inside">${Obj.sourceName}</p> 
             <p class="msg-show">
-                <img class="avatar-img" src="data:image/png;base64,${img}" alt="">
-                <span class="msg-text">${Obj.sourceText}</span> 
+                <img class="avatar-img" src="${$(`#list-online-ul-s-id [IP = ${Obj.sourceIP}]`).find('img').attr('src')}"alt="">
+                <span class="msg-text" dir="ltr">${Obj.sourceText}</span> 
                 </p>
-        </li>
-        <div class="clearfix"></div>`)
-        $(`#msg-area-body-id [rID = ${Obj.rID}]`).scrollTop($(`#msg-area-body-id [rID = ${Obj.rID}]`).prop('scrollHeight'))
-        $(`#now-msg-show-stt [rID = ${Obj.rID}]`).css('background-color', '#e3e3e3')
-    })
+        </li> <div class="clearfix"></div>`)
+    $(`#msg-area-body-id [rID = ${Obj.rID}]`).scrollTop($(`#msg-area-body-id [rID = ${Obj.rID}]`).prop('scrollHeight'))
+    $(`#now-msg-show-stt [rID = ${Obj.rID}]`).css('background-color', '#e3e3e3')
     $(`#now-msg-show-stt [rID = ${Obj.rID}]`).prependTo('#now-msg-show-stt')
-    // swapNewBox(Obj.rID)
-    // peerObj.nowFistBox = Obj.rID;
 }
 
 // SEND IMAGE MESSAGE--------------------------------------------------------
@@ -556,56 +585,52 @@ $('#file-image-transfer').on("change", function (event) {
     const blob = new Blob(event.target.files)
     const roomID = $(this).attr('rID');
     const ListIP = peerObj.listBoxChat[peerObj.nowBoxChatNum].rLIP;
-    const Obj = { action: "sendMsgImg", Name: peerObj.Name, ID: peerObj.ID, rID: roomID, image: blob }
+    const Obj = { action: "sendMsgImg", Name: peerObj.Name, IP: peerObj.IP, rID: roomID, image: blob }
     ListIP.forEach(e => {
         const conn = peer.connect(e);
         conn.on('open', () => {
             conn.send(Obj)
         })
     })
-    const stt = Math.random().toString(36).substring(7);
-    socket.emit("get-images-buffer", { list: [Obj.ID], state: stt })
-    socket.on('list-avatar-buffer-' + stt, img => {
-        $(`#msg-area-body-id [rID=${Obj.rID}]`).append(`
+    $(`#msg-area-body-id [rID=${Obj.rID}]`).append(`
         <li class="message-host" dir="rtl">
             <p class="host-name-inside">${Obj.Name}</p> 
             <p class="msg-show">
-                <img class="avatar-img" src="data:image/png;base64,${img}" alt="">
+                <img class="avatar-img" src="${$(`#list-online-ul-s-id [IP = ${peerObj.IP}]`).find('img').attr('src')}"alt="">
                 <img class="msg-img" src="${URL.createObjectURL(event.target.files[0])}" alt="">
                 </p>
         </li>
         <div class="clearfix"></div>`)
-    })
-    // swapNewBox(Obj.rID)
     $(`#now-msg-show-stt [rID = ${Obj.rID}]`).prependTo('#now-msg-show-stt')
-    // peerObj.nowFistBox = Obj.rID;
     $(`#msg-area-body-id [rID = ${Obj.rID}]`).scrollTop($(`#msg-area-body-id [rID = ${Obj.rID}]`).prop('scrollHeight'))
     $(`#now-msg-show-stt [rID = ${Obj.rID}]`).css('background-color', '#e3e3e3')
 })
 
 function renderImgMessage(Obj) {
     const bytes = new Uint8Array(Obj.image)
-    const stt = Math.random().toString(36).substring(7);
-    socket.emit("get-images-buffer", { list: [Obj.ID], state: stt })
-    socket.on('list-avatar-buffer-' + stt, img => {
-        $(`#msg-area-body-id [rID=${Obj.rID}]`).append(`
+    $(`#msg-area-body-id [rID=${Obj.rID}]`).append(`
         <li class="message-guest" dir="ltr">
             <p class="guest-name-inside">${Obj.Name}</p> 
             <p class="msg-show">
-                <img class="avatar-img" src="data:image/png;base64,${img}" alt="">
+                <img class="avatar-img" src="${$(`#list-online-ul-s-id [IP = ${Obj.IP}]`).find('img').attr('src')}"alt="">
                 <img class="msg-img" src="data:image/png;base64,${encode(bytes)}" alt="">
                 </p>
         </li>
         <div class="clearfix"></div>`)
-    })
     $(`#now-msg-show-stt [rID = ${Obj.rID}]`).prependTo('#now-msg-show-stt')
-    // swapNewBox(Obj.rID)
-    // peerObj.nowFistBox = Obj.rID;
     $(`#msg-area-body-id [rID = ${Obj.rID}]`).scrollTop($(`#msg-area-body-id [rID = ${Obj.rID}]`).prop('scrollHeight'))
     $(`#now-msg-show-stt [rID = ${Obj.rID}]`).css('background-color', '#e3e3e3')
 }
 
 $('#msg-area-body-id').on('click', 'img', function () {
+    $('#divImageShowing').show()
+    var btn = $('<p id="btnOnR" class="btnCloseImage" style="position:fixed;" onclick="closed()"><i class="fas fa-compress-arrows-alt"></i></p>')
+    var miniDiv = $(`<div class="miniDiv" style="position:fixed;" ><img id="imgonR" class="resizeImg"  style="cursor:pointer" src = ${$(this).attr('src')} ></img></div>`)
+    var div = $('<div id = "idImageShow" style="position:fixed;" class="ImageShow"></div>')
+    $('#divImageShowing').append(div, miniDiv, btn)
+})
+
+$('#group-avt-s-id').on('click', 'img', function () {
     $('#divImageShowing').show()
     var btn = $('<p id="btnOnR" class="btnCloseImage" style="position:fixed;" onclick="closed()"><i class="fas fa-compress-arrows-alt"></i></p>')
     var miniDiv = $(`<div class="miniDiv" style="position:fixed;" ><img id="imgonR" class="resizeImg"  style="cursor:pointer" src = ${$(this).attr('src')} ></img></div>`)
@@ -672,6 +697,12 @@ function setStream(idVideo, stream) {
 
 $('#videoc-tranf-inte').click(event => {
     const listIP = peerObj.listBoxChat[peerObj.nowBoxChatNum].rLIP;
+    appendVideoBtn({
+        listIP: listIP,
+        Name: peerObj.Name,
+        IP: peerObj.IP,
+        rID: peerObj.nowBoxChat
+    }, true)
     listIP.forEach(id => {
         if (id != peerObj.IP) {
             peerObj.peerVidState = true;
@@ -680,39 +711,27 @@ $('#videoc-tranf-inte').click(event => {
                 action: "createVideoBox",
                 listIP: listIP,
                 Name: peerObj.Name,
-                ID: peerObj.ID,
+                IP: peerObj.IP,
                 rID: peerObj.nowBoxChat
             }))
         }
     })
-    appendVideoBtn({
-        listIP: listIP,
-        Name: peerObj.Name,
-        ID: peerObj.ID,
-        rID: peerObj.nowBoxChat
-    }, true)
 })
 
 function appendVideoBtn(Obj, bool) {
-    const stt = Math.random().toString(36).substring(7);
-    socket.emit("get-images-buffer", { list: [Obj.ID], state: stt })
     const extens = ((bool) ? "host" : "guest")
-    socket.on('list-avatar-buffer-' + stt, img => {
-        $(`#msg-area-body-id [rID=${Obj.rID}]`).append(`
+    $(`#msg-area-body-id [rID=${Obj.rID}]`).append(`
         <li class="message-${extens}" dir="${((bool) ? "rtl" : "ltr")}">
             <p class="${extens}-name-inside">${Obj.Name}</p> 
             <p class="msg-show">
-                <img class="avatar-img" src="data:image/png;base64,${img}" alt="">
+            <img class="avatar-img" src="${$(`#list-online-ul-s-id [IP = ${Obj.IP}]`).find('img').attr('src')}"alt="">
                 <button class="msg-vid">Video Call</button>
                 </p>
         </li>
         <div class="clearfix"></div>`)
-        $(`#msg-area-body-id [rID = ${Obj.rID}]`).scrollTop($(`#msg-area-body-id [rID = ${Obj.rID}]`).prop('scrollHeight'))
-        $(`#now-msg-show-stt [rID = ${Obj.rID}]`).css('background-color', '#e3e3e3')
-    })
+    $(`#msg-area-body-id [rID = ${Obj.rID}]`).scrollTop($(`#msg-area-body-id [rID = ${Obj.rID}]`).prop('scrollHeight'))
+    $(`#now-msg-show-stt [rID = ${Obj.rID}]`).css('background-color', '#e3e3e3')
     $(`#now-msg-show-stt [rID = ${Obj.rID}]`).prependTo('#now-msg-show-stt')
-    // swapNewBox(Obj.rID)
-    // peerObj.nowFistBox = Obj.rID;
     $("#divVideoShowing").attr('mem_count', '1')
 }
 
@@ -724,9 +743,6 @@ $('#msg-area-body-id').on('click', 'button', function () {
     }
     else {
         $('#div-call-contains').show()
-
-        // SHOW VIDEO CONTAINS HTML HERE
-
         openStream().then(stream => {
             const thisIPSUB = peerObj.IP.substring(0, 9)
             const divStream = $(`<video muted autoplay id="${thisIPSUB}" class = "streamvideo" ></video>`);
@@ -836,7 +852,6 @@ function removeFromrID(rID, MemInRoom) {
 }
 
 function removeBoxChat(Obj) {
-    console.log(Obj)
     const index = peerObj.listBoxChat.findIndex(e => e.rID == Obj.rID);
     const sIdx = peerObj.listBoxChat[index].rLIP.findIndex(e => e == Obj.IP);////////////////////////////////
     peerObj.listBoxChat[index].rLIP.splice(sIdx, 1);
@@ -850,7 +865,6 @@ function removeBoxChat(Obj) {
 // --------------------------LOGOUT REQUEST------------------------
 
 $('#id-sign-out-action').click(event => {
-    console.log('ok')
     const IP = peerObj.IP;
     peerObj.listBoxChat.forEach(e => {
         e.rLIP.forEach(t => {
