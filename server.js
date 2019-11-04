@@ -124,12 +124,15 @@ io.on('connection', function (socket) {
         listOnline.push(account)
         socket.emit('listOn-Off', { listOn: listOnline, listOff: listOffline })
         socket.broadcast.emit("new-online-user", account)
-
+    })
+    socket.on('Ready-to-render', ()=>{
+        console.log("SERVER READY TO RENDER")
+        socket.broadcast.emit('raise-new-online-user')
     })
 
-    socket.on('getUserData', ID=>{
-        socket.emit('responseUserData', socket.account.username)
-    })
+    // socket.on('getUserData', ()=>{
+    //     socket.emit('responseUserData', socket.account.username)
+    // })
 
     socket.on('change-pass-word', Obj=>{
         socket.account.password = Obj.password;

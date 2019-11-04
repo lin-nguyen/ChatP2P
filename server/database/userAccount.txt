@@ -2,4 +2,7 @@
 {"username":"bui.long.99","password":"buiphilong","fullname":"Bùi Phi Long","ID":1},
 {"username":"kivio1403","password":"thuyhien99","fullname":"Thuy Hien","ID":2},
 {"username":"thuyduong99","password":"phamthuyduong","fullname":"Thuy Duong","ID":3},
-{"username":"king.99","password":"kingmonster","fullname":"King of Monster","ID":4}
+{"username":"king.99","password":"kingmonster","fullname":"King of Monster","ID":4},
+{"username":"hienxe1909","password":"hoanghien99","fullname":"Hoàng Hiền","ID":5},
+{"username":"takyphung1409","password":"takyphung","fullname":"Phung Ta","ID":6},
+{"username":"dinhtran99","password":"dinhhoangtran","fullname":"Đinh Trấn","ID":7}

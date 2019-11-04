@@ -1,4 +1,3 @@
-
 // MAIN_THREAD_CREATE
 $('#sign-up-action-click').click((event) => {
     const bool = $(this).attr('display');
@@ -97,7 +96,7 @@ $('#btn-sign-action-id').click(event => {
                 if (file != undefined) {
                     var formData = new FormData()
                     files = file.name.split('.')
-                    files = (call.id + "." + files[1])
+                    files = (call.id + ".png")
                     formData.append('avatar', file, files);
                     $.ajax({
                         type: 'POST',
@@ -190,36 +189,38 @@ $('#add-new-box-msg').click(event => {
     $('#account-status-req-id').show()
 })
 
+var username;
+
 $('#view-info-event-id').click(e => {
-    $('#img-user-id').attr('src',$(`#list-online-ul-s-id [IP = ${peerObj.IP}]`).find('img').attr('src'))
+    $('#img-user-id').attr('src', $(`#list-online-ul-s-id [IP = ${peerObj.IP}]`).find('img').attr('src'))
     $('#info-user-id').show();
     $('#view-fname').text(peerObj.Name);
     $('#view-boxchat-id').text(peerObj.numBoxChat);
-    socket.emit('getUserData', peerObj.ID)
-    socket.on('responseUserData', username => {
+    // socket.emit('getUserData')
+    // socket.on('responseUserData', username => {
         $('#view-uname').text(username);
-    })
+    // })
 })
 $('#cl-act-v-id').click(e => {
     $('#info-user-id').hide();
     $('.alert-done-confim').hide();
 })
 var boolF = false, boolS = false;
-$('#cg-paw-f').on('input',function (event) {
+$('#cg-paw-f').on('input', function (event) {
     if ($(this).val().length < 6) {
-        boolF= false;
+        boolF = false;
         $('.alert-not-satify').css('visibility', 'visible');
     }
     else {
         $('.alert-not-satify').css('visibility', 'hidden');
-        boolF =true;
+        boolF = true;
         var keycode = (event.keyCode ? event.keyCode : event.which);
         if (keycode == '13') { $('#confim-paw-id').click() }
     }
 })
-$('#cg-paw-s').on('input',function (event) {
+$('#cg-paw-s').on('input', function (event) {
     if ($(this).val().trim() != $('#cg-paw-f').val().trim()) {
-        boolS= false;
+        boolS = false;
         $('.alert-not-match').show();
     }
     else {
@@ -230,8 +231,8 @@ $('#cg-paw-s').on('input',function (event) {
     }
 })
 
-$('#confim-paw-id').click(function (event){
-    socket.emit('change-pass-word', {ID: peerObj.ID, password: $('#cg-paw-f').val().trim()})
+$('#confim-paw-id').click(function (event) {
+    socket.emit('change-pass-word', { ID: peerObj.ID, password: $('#cg-paw-f').val().trim() })
     $('.alert-done-confim').show();
 })
 ////////////------------------------------------------PEER-------------------------------------------------------
@@ -307,6 +308,7 @@ peer.on("connection", conn => {
 function emitNewUser(ID, name) {
     peerObj.ID = ID;
     peerObj.Name = name;
+    username= $('#user-ip-id-get').val().trim();
     socket.emit('newPeerOnline', { IP: peerObj.IP, username: $('#user-ip-id-get').val().trim() })
     $('#user-ip-id-get').val('')
     $('#ps-ip-id-get').val('')
@@ -368,6 +370,7 @@ socket.on('listOn-Off', list => {
     console.log("listOn-Off get:\t" + new Date().getTime() / 1000)
     $('.LOGIN-SIGNUP').hide();
     socket.on('list-avatar-buffer', listImage => {
+        socket.emit('Ready-to-render')
         for (var i = 0; i < onlineL; i++) {
             $('#list-online-ul-s-id').append(`
                 <li class="list-online-li-style" check = "false" data="${list.listOn[i].fullname}" IP="${list.listOn[i].IP}">
@@ -387,13 +390,16 @@ socket.on('listOn-Off', list => {
         console.log("Display On-off:\t" + new Date().getTime() / 1000)
     })
     socket.on('new-online-user', account => {
-        $(`#list-offline-ul-s-id [IP="${account.ID}"]`).remove()
-        $('#list-online-ul-s-id').append(`
-            <li class="list-online-li-style" check = "false" data="${account.fullname}" IP="${account.IP}">
-                <img class="img-status-options" src="data:image/png;base64,${account.src}" alt="Nothing">
-                <span class="l-o-s-u">${account.fullname}</span>
-                <i class="fas fa-circle fa-online"></i>
-            </li>`)
+        socket.on('raise-new-online-user', () => {
+            console.log("CLIENT READY TO RAISE")
+            $(`#list-offline-ul-s-id [IP="${account.ID}"]`).remove()
+            $('#list-online-ul-s-id').append(`
+                <li class="list-online-li-style" check = "false" data="${account.fullname}" IP="${account.IP}">
+                    <img class="img-status-options" src="data:image/png;base64,${account.src}" alt="Nothing">
+                    <span class="l-o-s-u">${account.fullname}</span>
+                    <i class="fas fa-circle fa-online"></i>
+                </li>`)
+        })
     })
     socket.on('new-offline-user', account => {
         $('#list-offline-ul-s-id').append(`
@@ -638,6 +644,15 @@ $('#group-avt-s-id').on('click', 'img', function () {
     $('#divImageShowing').append(div, miniDiv, btn)
 })
 
+
+$('#img-user-id').click(function(){
+    $('#divImageShowing').show()
+    var btn = $('<p id="btnOnR" class="btnCloseImage" style="position:fixed;" onclick="closed()"><i class="fas fa-compress-arrows-alt"></i></p>')
+    var miniDiv = $(`<div class="miniDiv" style="position:fixed;" ><img id="imgonR" class="resizeImg"  style="cursor:pointer" src = ${$(this).attr('src')} ></img></div>`)
+    var div = $('<div id = "idImageShow" style="position:fixed;" class="ImageShow"></div>')
+    $('#divImageShowing').append(div, miniDiv, btn)
+})
+
 function closed() {
     $('.miniDiv').remove()
     $('#btnOnR').remove()
@@ -678,7 +693,7 @@ function encode(input) {
 
 
 
-// SEND IMAGE MESSAGE--------------------------------------------------------
+// SEND VIDEO MESSAGE--------------------------------------------------------
 
 function openStream() {
     const config = { audio: true, video: true }
