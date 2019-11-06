@@ -179,12 +179,10 @@ html {
 }
 
 .sign-control{
-    display: inline-block;
+    display: flex;
     font-size: 0.7em;
     margin-top: 5%;
-    margin-left: 65%;
     padding: 1% 1%;
-    border-radius: 30px;
 }
  
 /* --------------------------------------INFO & LOGIN STYLE----------------- */
@@ -221,6 +219,59 @@ html {
     height: 80%;
 }
 
+.retaks-password-form{
+    display: none;
+    width: 80%;
+    height: 80%;
+    margin-left: 10%;
+    margin-top: 10%;
+}
+.header-retake{
+    font-weight: 700;
+    font-size: 1.2em;
+    text-align: center;
+    margin: 2% 3%;
+}
+.redirect-confirm{
+    font-size: 0.8em;;
+    color: green;
+    margin-left: 10%;
+    margin-bottom: 5%;
+    visibility: hidden;
+}
+.alert-username-not-allow{
+    font-size: 0.8em;
+    margin-left: 10%;
+    color: red;
+    font-style: oblique;
+    visibility: hidden;
+}
+.input-email-to-take{
+    display: flex;
+    align-items: center;
+    height: 10%;
+    width: 50%;
+    margin-left: 7%;
+}
+.input-take-pw{
+    width: 100%;
+    height: 80%;
+    padding-left: 10%;
+    border-radius: 10%;
+    border:outset 2px green;
+}
+.btnNewPassword{
+    margin-top: 5%;
+    margin-left: 40%;
+    padding: 2% 3%;
+    border-radius: 10%;
+    background-color: green;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+}
+
+
 .signin-form{
     width: 100%;
     height: 100%;
@@ -233,12 +284,24 @@ html {
 }
 
 .sign-up-action-btn{
+    margin-left: 40%;
     color: green;
     cursor: pointer;
 }
 .sign-up-action-btn:hover{
     color: red;
 }
+
+.paw-retrie-action-btn{
+    margin-left: 5%;
+    color: green;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+.paw-retrie-action-btn:hover{
+    color: red;
+}
+
 
 .output-signin-final{
     float: right;
@@ -514,8 +577,9 @@ html {
 
 .list-online-ul-showing,
 .list-offline-ul-showing{
+    height: 100%;
     list-style: none;
-    overflow:auto;
+    overflow: auto;
 }
 
 .list-online-li-style,
@@ -544,7 +608,6 @@ html {
     font-size: 0.8em;
     overflow: hidden;
 }
-
 .fa-circle {
     font-size: 0.4em;
     max-width: 5%;
@@ -891,7 +954,23 @@ html {
     max-width: 80%;
     height: auto;
     font-size: 0.8em;
+    overflow-wrap: break-word;
 
+}
+.msg-file{
+    padding: 2% 2%;
+    background-color: #f3f3f3;
+    border-radius: 20px;
+    margin-right: 4%;
+    max-width: 80%;
+    height: auto;
+    font-size: 0.8em;
+    cursor: pointer;
+    color: black;
+    text-decoration: underline black;
+}
+.msg-file:hover{
+    color: #24c73a;
 }
 
 .msg-img{
@@ -1043,6 +1122,7 @@ html {
 
 #divImageShowing{
     position: fixed;
+    display: none;
 }
 .ImageShow{
     border-top-right-radius: 100px;
@@ -1058,7 +1138,7 @@ html {
     display: flex;
     align-items: center;
     width: 100vw;
-    height: 100vh;
+    margin-top: 10vh;
 }
 
 .resizeImg{
@@ -1077,6 +1157,14 @@ html {
     height: 20px;
     border-top: solid 5px white;
     border-left: solid 5px white;
+}
+
+.btnDownload{
+    position: fixed;
+    cursor: pointer;
+    font-size: 1.4em;
+    margin: 1% 5%;
+    color: white;
 }
 
 /* -----------------------------VIDEO CALL STYLE------------------- */

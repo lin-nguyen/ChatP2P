@@ -5,7 +5,7 @@ const io = require('socket.io')(server);
 const bodyParser = require('body-parser')
 const fs = require('fs')
 const multer = require('multer')
-
+const nodeMailer = require('nodemailer')
 const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, () => {
@@ -97,6 +97,52 @@ app.post('/avatar-default', (req, res, next) => {
     fs.copyFileSync('./server/avatar-img/default-avatar.png', `./server/avatar-img/${req.body.id}.png`)
     res.send(true)
 })
+
+app.post('/get-username', (req,res,next)=>{
+    const check1 = listOffline.some(e=> e.username == req.body.user);
+    if(check1){
+        res.send(true);
+    }
+    else{
+        res.send(false);
+    }
+})
+
+app.post('/retrieval-paw',(req,res,next)=>{
+    console.log(req.body.user)
+    const transporter = nodeMailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'philonglml2@gmail.com',
+      pass: 'buiphilong'
+    }
+    });
+    let r = "newPaw"+ Math.random().toString(36).substring(7);
+    var mailOptions = {
+        from: 'SHAREANTBOX',
+        to: req.body.user,
+        subject: 'Password retrieval SHAREANTBOX.',
+        text: `Your new password: ${r}`
+    }; 
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+            const indexs = listOffline.findIndex(e=> e.username == req.body.user);
+            if(indexs != -1){
+                listOffline[indexs].password = r;
+                var TempList = loadDatabase();
+                const index = TempList.findIndex(e=> e.username == req.body.user);
+                TempList[index].password = r;
+                for (var i = 0; i < TempList.length; i++){
+                    TempList[i] = JSON.stringify(TempList[i])
+                }
+                fs.writeFileSync('./server/database/userAccount.txt',TempList.join(',\n'));
+                res.send(true)
+            }
+        }
+    });
+})
 // ---------------------------------------------INTERACT PROCESSION-------------------------------------------
 
 io.on('connection', function (socket) {
@@ -113,17 +159,17 @@ io.on('connection', function (socket) {
             ID: listOffline[index].ID
         }
         const src = fs.readFileSync(`./server/avatar-img/${listOffline[index].ID}.png`).toString('base64')
-        listOffline.splice(index, 1)
-        // socket
         const account = {
             ID: socket.account.ID,
             fullname: fname,
             IP: Ix.IP,
             src: src
         }
+        socket.broadcast.emit("new-online-user", account)
+        listOffline.splice(index, 1)
+        // socket
         listOnline.push(account)
         socket.emit('listOn-Off', { listOn: listOnline, listOff: listOffline })
-        socket.broadcast.emit("new-online-user", account)
     })
     socket.on('Ready-to-render', ()=>{
         console.log("SERVER READY TO RENDER")

@@ -20,17 +20,7 @@
             </div>
             <div class="now-message-showing-status">
                 <ul class="now-message-ul-showing" id="now-msg-show-stt">
-                    <!-- <li>
-                        <p>
-                            Dung Cao
-                        </p>
-                        <br>
-                        <p>
-                            <img src="../image/unknow-avatar.png" alt="">
-                            <img src="../image/unknow-avatar.png" alt="">
-                            <img src="../image/unknow-avatar.png" alt="">
-                        </p>
-                    </li> -->
+                    
                 </ul>
             </div>
         </div>
@@ -46,14 +36,13 @@
                     <i class="fas fa-sign-out-alt"></i>
                 </div>
             </div>
-            <!-- boxID(string), peerID(string) , username (string), image  (blob) -->
-            <div class="box-contains-class" id="box-contains-id">
+             <div class="box-contains-class" id="box-contains-id">
                 <div class="message-area-body" id="msg-area-body-id">
                     <ul class="message-area-ul-show" id="msg-area-ul-s-id" rid="root">
                         <li class="message-guest" dir="ltr">
                             <p class="guest-name-inside">Thuy Hien</p>
                             <p class="msg-show">
-                                <img class="avatar-img" src="../image/kivio.png">
+                                <img class="avatar-img" src="../image/primary avt.png">
                                 <span class="msg-text" dir="ltr">Hi!</span>
                             </p>
                         </li>
@@ -61,7 +50,7 @@
                         <li class="message-guest" dir="ltr">
                             <p class="guest-name-inside">Thuy Duong</p>
                             <p class="msg-show">
-                                <img class="avatar-img" src="../image/av1.png" alt="">
+                                <img class="avatar-img" src="../image/primary avt.png" alt="">
                                 <span class="msg-text" dir="ltr">Hi!</span>
                             </p>
                         </li>
@@ -70,7 +59,7 @@
                             <p class="host-name-inside">Bùi Phi Long</p>
                             <p class="msg-show">
                                 <img class="avatar-img" src="../image/bpl.png" alt="">
-                                <span class="msg-text" dir="ltr">Hello!</span>
+                                <a  dir="ltr" class="msg-file" download="Legend nerver die.mp3" src="">Legend nerver die.mp3</a>
                             </p>
                         </li>
                         <div class="clearfix"></div>
@@ -85,7 +74,6 @@
                     </ul>
                 </div>
             </div>
-            <!-- ENDBOX -->
             <div class="message-area-footer">
                 <input type="text" class="input-send-message" id="input-send-msg-id"
                     placeholder="Enter your message here!">
@@ -99,7 +87,7 @@
                 <p class="signOut-actions" id="id-sign-out-action">Sign out</p>
             </div>
             <p class="file-transfer-interaction">
-                <input type="file" id="file-image-transfer" rID="root" accept="img/*" style="display: none;">
+                <input type="file" id="file-image-transfer" rID="root" accept="image/*|" style="display: none;">
                 <label for="file-image-transfer" class="label-image-transfer">
                     <i id="fa-image-tt" class="far fa-images" title="Select your image here!"></i>
                 </label>
@@ -188,8 +176,12 @@
                 <button type="Submit" class="log-action-class" id="log-action-id-send">Sign
                     in</button>
                 <div class="sign-control">
+                    <p class="paw-retrie-action-btn" id="paw-retrie-action-click" display="false">
+                        Password retrieval</p>
+                        
                     <p class="sign-up-action-btn" id="sign-up-action-click" display="false">
                         Create an account</p>
+                        
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -197,6 +189,13 @@
                 <div class="introduction-form" id="info-form-id">
                     <p>Share to be better !</p>
                     <img src="../image/background.png" alt="">
+                </div>
+                <div class="retaks-password-form" id="retake-pw-form">
+                    <p class="header-retake">Password Retrieval</p>
+                    <p class="redirect-confirm" id="redirec-ok">Create password done, please check your spam gmail!</p>
+                    <p class="alert-username-not-allow" id="al-user-n-a-id">Your username does not exist!</p>
+                    <p class="input-email-to-take"><input class="input-take-pw" id="input-retrieval-paw" type="text" placeholder="Your mail here!"></p>
+                    <button class="btnNewPassword" id="newpaw-send">Send</button>
                 </div>
                 <div class="signin-form" id="signin-form-id" style="display: none;">
                     <div class="signin-title">Sign up</div>
@@ -264,7 +263,16 @@
         </div>
     </div>
 
-    <div id="divImageShowing"></div>
+    <div id="divImageShowing">
+            <div id = "idImageShow" style="position:fixed;" class="ImageShow"></div>
+            <div class="miniDiv" style="position:fixed;" >
+                <img id="imgonR" class="resizeImg"  style="cursor:pointer" src = "../image/bpl.png" ></img>
+            </div>
+            <p id="btnOnR" class="btnCloseImage" style="position:fixed;" onclick="closed()">
+            <i class="fas fa-compress-arrows-alt"></i>
+            </p>
+            <a id="btnOnDownload" class="btnDownload"><i class="fas fa-download"></i></a>
+    </div>
     <div id="div-call-contains">
         <div class="background-filler"></div>
         <div id="divVideoShowing" mem_count="0">

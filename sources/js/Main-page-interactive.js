@@ -5,13 +5,32 @@ $('#sign-up-action-click').click((event) => {
         $(this).attr('display', 'true');
         $('#signin-form-id').show();
         $('#info-form-id').hide();
+        $('#retake-pw-form').hide();
     }
     else {
         $(this).attr('display', 'false');
         $('#signin-form-id').hide();
         $('#info-form-id').show();
+        $('#retake-pw-form').hide();
     }
 })
+
+$('#paw-retrie-action-click').click((event) => {
+    const bool = $(this).attr('display');
+    if (bool === 'false') {
+        $(this).attr('display', 'true');
+        $('#signin-form-id').hide();
+        $('#info-form-id').hide();
+        $('#retake-pw-form').show();
+    }
+    else {
+        $(this).attr('display', 'false');
+        $('#signin-form-id').hide();
+        $('#info-form-id').show();
+        $('#retake-pw-form').hide();
+    }
+})
+
 
 var b1 = false, b2 = false, b3 = false;
 
@@ -31,6 +50,12 @@ $('#user-sign-up-id').on('input', function () {
         $('#user-alert').show();
     }
     else {
+        if(!($(this).val().includes("@gmail.com"))){
+            b1 = false;
+            $('#user-alert').show();
+            $('#user-alert').text('Your username must be gmail');
+        }
+        else {
         $.ajax({
             type: 'POST',
             url: '/username-check',
@@ -46,6 +71,7 @@ $('#user-sign-up-id').on('input', function () {
                 $('#user-alert').hide();
             }
         })
+        }
     }
     Alert()
 })
@@ -152,7 +178,38 @@ $("#log-action-id-send").click(event => {
         }
     })
 })
-
+// CREATE NEW PASSWORD
+var control = false;
+$('#input-retrieval-paw').on('input', function(event){
+    $.ajax({
+        type:"POST",
+        url:"/get-username",
+        data:{user:$(this).val()}
+    }).done(bool=>{
+        if(bool){
+            $('#al-user-n-a-id').css('visibility','hidden');
+            control = true;
+        }
+        else {
+            $('#al-user-n-a-id').css('visibility','visible');
+            control = false;
+        }
+    })
+})
+$('#newpaw-send').click(event=>{
+    $(this).prop('disabled',true);
+    if(control){
+    $.ajax({
+        type:"POST",
+        url:"/retrieval-paw",
+        data:{user:$('#input-retrieval-paw').val()}
+    }).done(bool=>{
+        if(bool){
+            $('#redirec-ok').css('visibility','visible')
+        }
+    })
+    }
+})
 // -------------------HANDING FRONT-END---------------------
 $('#close-search-interaction').click(event => {
     if (peerObj.numBoxChat != 0) {
@@ -421,8 +478,8 @@ socket.on('listOn-Off', list => {
     })
 })
 
-// BOX-CHAT------------------------------------------------------------
 
+// BOX-CHAT------------------------------------------------------------
 function checkExist(List, tList) {
     var returnCheck = "";
     List.forEach(e => {
@@ -588,41 +645,73 @@ function renderTextMessage(Obj, bool) {
 
 // SEND IMAGE MESSAGE--------------------------------------------------------
 $('#file-image-transfer').on("change", function (event) {
+    console.log(event.target.files)
     const blob = new Blob(event.target.files)
+    const Blobs = {
+        file: blob,
+        filename: event.target.files[0].name,
+        fileExtension: event.target.files[0].type
+    }
     const roomID = $(this).attr('rID');
     const ListIP = peerObj.listBoxChat[peerObj.nowBoxChatNum].rLIP;
-    const Obj = { action: "sendMsgImg", Name: peerObj.Name, IP: peerObj.IP, rID: roomID, image: blob }
+    const Obj = { action: "sendMsgImg", Name: peerObj.Name, IP: peerObj.IP, rID: roomID, data: Blobs}
     ListIP.forEach(e => {
         const conn = peer.connect(e);
         conn.on('open', () => {
             conn.send(Obj)
         })
     })
+    if(Blobs.fileExtension.includes('image')){
     $(`#msg-area-body-id [rID=${Obj.rID}]`).append(`
         <li class="message-host" dir="rtl">
             <p class="host-name-inside">${Obj.Name}</p> 
             <p class="msg-show">
                 <img class="avatar-img" src="${$(`#list-online-ul-s-id [IP = ${peerObj.IP}]`).find('img').attr('src')}"alt="">
-                <img class="msg-img" src="${URL.createObjectURL(event.target.files[0])}" alt="">
+                <img class="msg-img" name="${Blobs.filename}" src="${URL.createObjectURL(event.target.files[0])}" alt="">
                 </p>
         </li>
         <div class="clearfix"></div>`)
+    }
+    else {
+    $(`#msg-area-body-id [rID=${Obj.rID}]`).append(`
+    <li class="message-host" dir="rtl">
+        <p class="host-name-inside">${Obj.Name}</p> 
+        <p class="msg-show">
+            <img class="avatar-img" src="${$(`#list-online-ul-s-id [IP = ${peerObj.IP}]`).find('img').attr('src')}"alt="">
+            <a dir="ltr" class="msg-file" download="${Blobs.filename}" href=${URL.createObjectURL(event.target.files[0])} >${Blobs.filename}</a>
+            </p>
+    </li>
+    <div class="clearfix"></div>`)
+    }
     $(`#now-msg-show-stt [rID = ${Obj.rID}]`).prependTo('#now-msg-show-stt')
     $(`#msg-area-body-id [rID = ${Obj.rID}]`).scrollTop($(`#msg-area-body-id [rID = ${Obj.rID}]`).prop('scrollHeight'))
     $(`#now-msg-show-stt [rID = ${Obj.rID}]`).css('background-color', '#e3e3e3')
 })
 
 function renderImgMessage(Obj) {
-    const bytes = new Uint8Array(Obj.image)
+    const bytes = new Uint8Array(Obj.data.file)
+    if(Obj.data.fileExtension.includes('image')){
     $(`#msg-area-body-id [rID=${Obj.rID}]`).append(`
         <li class="message-guest" dir="ltr">
             <p class="guest-name-inside">${Obj.Name}</p> 
             <p class="msg-show">
                 <img class="avatar-img" src="${$(`#list-online-ul-s-id [IP = ${Obj.IP}]`).find('img').attr('src')}"alt="">
-                <img class="msg-img" src="data:image/png;base64,${encode(bytes)}" alt="">
+                <img class="msg-img" name="${Obj.data.filename}" src="data:image/*;base64,${encode(bytes)}" alt="">
                 </p>
         </li>
         <div class="clearfix"></div>`)
+    }
+    else {
+        $(`#msg-area-body-id [rID=${Obj.rID}]`).append(`
+        <li class="message-guest" dir="ltr">
+            <p class="guest-name-inside">${Obj.Name}</p> 
+            <p class="msg-show">
+                <img class="avatar-img" src="${$(`#list-online-ul-s-id [IP = ${Obj.IP}]`).find('img').attr('src')}"alt="">
+                <a dir="ltr" class="msg-file" download="${Obj.data.filename}" href="data:text/plain;base64,${encode(bytes)}" >${Obj.data.filename}</a>
+                </p>
+        </li>
+        <div class="clearfix"></div>`)
+        }
     $(`#now-msg-show-stt [rID = ${Obj.rID}]`).prependTo('#now-msg-show-stt')
     $(`#msg-area-body-id [rID = ${Obj.rID}]`).scrollTop($(`#msg-area-body-id [rID = ${Obj.rID}]`).prop('scrollHeight'))
     $(`#now-msg-show-stt [rID = ${Obj.rID}]`).css('background-color', '#e3e3e3')
@@ -630,33 +719,30 @@ function renderImgMessage(Obj) {
 
 $('#msg-area-body-id').on('click', 'img', function () {
     $('#divImageShowing').show()
-    var btn = $('<p id="btnOnR" class="btnCloseImage" style="position:fixed;" onclick="closed()"><i class="fas fa-compress-arrows-alt"></i></p>')
-    var miniDiv = $(`<div class="miniDiv" style="position:fixed;" ><img id="imgonR" class="resizeImg"  style="cursor:pointer" src = ${$(this).attr('src')} ></img></div>`)
-    var div = $('<div id = "idImageShow" style="position:fixed;" class="ImageShow"></div>')
-    $('#divImageShowing').append(div, miniDiv, btn)
+    $('#imgonR').attr('src',$(this).attr('src'))
+    $('#btnOnDownload').attr('href', $(this).attr('src'))
+    $('#btnOnDownload').attr('download', $(this).attr('name'))
 })
 
 $('#group-avt-s-id').on('click', 'img', function () {
     $('#divImageShowing').show()
-    var btn = $('<p id="btnOnR" class="btnCloseImage" style="position:fixed;" onclick="closed()"><i class="fas fa-compress-arrows-alt"></i></p>')
-    var miniDiv = $(`<div class="miniDiv" style="position:fixed;" ><img id="imgonR" class="resizeImg"  style="cursor:pointer" src = ${$(this).attr('src')} ></img></div>`)
-    var div = $('<div id = "idImageShow" style="position:fixed;" class="ImageShow"></div>')
-    $('#divImageShowing').append(div, miniDiv, btn)
+    $('#imgonR').attr('src',$(this).attr('src'))
+    $('#btnOnDownload').attr('download', "avatar.png")
+    $('#btnOnDownload').attr('href', $(this).attr('src'))
 })
-
 
 $('#img-user-id').click(function(){
     $('#divImageShowing').show()
-    var btn = $('<p id="btnOnR" class="btnCloseImage" style="position:fixed;" onclick="closed()"><i class="fas fa-compress-arrows-alt"></i></p>')
-    var miniDiv = $(`<div class="miniDiv" style="position:fixed;" ><img id="imgonR" class="resizeImg"  style="cursor:pointer" src = ${$(this).attr('src')} ></img></div>`)
-    var div = $('<div id = "idImageShow" style="position:fixed;" class="ImageShow"></div>')
-    $('#divImageShowing').append(div, miniDiv, btn)
+    $('#imgonR').attr('src',$(this).attr('src'))
+    $('#btnOnDownload').attr('download', "avatar.png")
+    $('#btnOnDownload').attr('href', $(this).attr('src'))
 })
 
 function closed() {
-    $('.miniDiv').remove()
-    $('#btnOnR').remove()
-    $('#idImageShow').remove()
+    // $('.miniDiv').hide()
+    // $('#btnOnR').hide()
+    // $('#idImageShow').hide()
+    // $('#btnOnDownload').hide()
     $('#divImageShowing').hide()
 }
 
@@ -870,7 +956,7 @@ function removeBoxChat(Obj) {
     const index = peerObj.listBoxChat.findIndex(e => e.rID == Obj.rID);
     const sIdx = peerObj.listBoxChat[index].rLIP.findIndex(e => e == Obj.IP);////////////////////////////////
     peerObj.listBoxChat[index].rLIP.splice(sIdx, 1);
-    peerObj.listBoxChat[index].rLID.splice(sIdx, 1);
+    // peerObj.listBoxChat[index].rLID.splice(sIdx, 1);
     peerObj.listBoxChat[index].rLName.splice(sIdx, 1);
     $(`#now-msg-show-stt [rID = ${Obj.rID}]`).find('p')[0].innerText = (peerObj.listBoxChat[index].rLName.join(', '))
     $(`#now-msg-show-stt [rID = ${Obj.rID}]`).find(`[root = ${Obj.IP}]`).remove();
@@ -891,5 +977,9 @@ $('#id-sign-out-action').click(event => {
             }
         })
     })
-    window.location.reload();
+    setTimeout(()=>window.location.reload(), 1500)
+    
 })
+$('#downloadFile').click(()=>{
+        download($('#img-showing').attr('src'),"strcode.png","image/png");
+    })
